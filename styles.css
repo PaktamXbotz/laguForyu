@@ -9,7 +9,7 @@ body {
     background-color: #1e1e1e; /* Darker background for the terminal */
     border: 1px solid #00ff00; /* Green border for terminal effect */
     padding: 0; /* Remove padding inside the terminal */
-    height: 100vh; /* Full height for the terminal */
+    height: 500px; /* Fixed height for the terminal */
     overflow-y: auto; /* Scroll if content overflows */
     white-space: pre-wrap; /* Preserve whitespace for typing effect */
     position: relative; /* Position relative for absolute positioning of circles */
@@ -31,10 +31,20 @@ body {
 .circle {
     position: absolute; /* Position circles absolutely */
     top: 10px; /* Position at the top */
-    left: 50%; /* Center horizontally */
-    transform: translateX(-50%); /* Adjust for centering */
-    width: 20px; /* Set width for circles */
-    height: 20px; /* Set height for circles */
-    background-color: #00ff00; /* Green color for circles */
+    left: 10px; /* Position at the left */
+    width: 15px; /* Set width for circles */
+    height: 15px; /* Set height for circles */
     border-radius: 50%; /* Make circles round */
+}
+
+.circle.red {
+    background-color: #ff5c5c; /* Red color for the circle */
+}
+
+.circle.yellow {
+    background-color: #ffcc00; /* Yellow color for the circle */
+}
+
+.circle.green {
+    background-color: #5cff5c; /* Green color for the circle */
 }

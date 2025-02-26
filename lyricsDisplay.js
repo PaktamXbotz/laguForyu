@@ -51,7 +51,7 @@ const typeWriter = (text, i, callback) => {
     if (i < text.length) {
         lyricsContainer.innerHTML += text.charAt(i);
         i++;
-        setTimeout(() => typeWriter(text, i, callback), 50); // Typing speed
+        setTimeout(() => typeWriter(text, i, callback), 100); // Slow down typing speed
     } else {
         callback();
     }
@@ -60,23 +60,18 @@ const typeWriter = (text, i, callback) => {
 const displayLyrics = () => {
     if (currentIndex < lyrics.length) {
         const { time, text } = lyrics[currentIndex];
-        const formattedText = text + '<br><br>'; // Format text to include paragraph spacing
-        typeWriter(formattedText, 0, () => { // Add paragraph spacing
-            currentIndex++; // Move to the next lyric
-            setTimeout(displayLyrics, 500); // Delay before displaying the next lyric
-        });
+        if (audio.currentTime >= time - 0.5) {
+            typeWriter(text + '\n\n', 0, () => { // Add spacing between lines
+                currentIndex++; // Move to the next lyric
+                setTimeout(displayLyrics, 500); // Delay before displaying the next lyric
+            });
+        } else {
+            requestAnimationFrame(displayLyrics); // Continue checking the time
+        }
+    } else {
+        displayAsciiArt(); // Display ASCII art after all lyrics are shown
     }
 };
-
-const simulateTerminalInput = () => {
-    typeWriter("nijxm@aloneHost $ play music\n", 0, () => {
-        audio.play(); // Autoplay music
-        displayLyrics(); // Start displaying lyrics
-    });
-};
-
-simulateTerminalInput(); // Start the terminal simulation
-
 
 const displayAsciiArt = () => {
     const asciiArt = `
@@ -89,8 +84,14 @@ const displayAsciiArt = () => {
     });
 };
 
+const simulateTerminalInput = () => {
+    typeWriter("nijxm@aloneHost $ play music\n", 0, () => {
+        audio.play(); // Autoplay music
+        displayLyrics(); // Start displaying lyrics
+    });
+};
+
 audio.addEventListener('play', () => {
     currentIndex = 0; // Reset index when audio plays
-    displayLyrics(); // Start displaying lyrics
-    displayAsciiArt(); // Display ASCII art at the end
+    simulateTerminalInput(); // Start the terminal simulation
 });

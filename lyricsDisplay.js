@@ -67,7 +67,7 @@ const displayLyrics = () => {
             if (wordIndex < words.length) {
                 typeWriter(words[wordIndex] + ' ', 0, () => {
                     wordIndex++; // Move to the next word
-                    setTimeout(typeNextWord, 300); // Delay before typing the next word
+                    setTimeout(typeNextWord, 100); // Delay before typing the next word
                 });
             } else {
                 currentIndex++; // Move to the next lyric

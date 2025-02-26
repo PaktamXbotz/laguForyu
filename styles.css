@@ -1,20 +1,30 @@
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    color: #333;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #f0f8ff; /* Light background for the rest of the page */
+    padding: 20px;
     margin: 0;
 }
 
-.container {
-    text-align: center;
+#lyrics {
+    white-space: pre; /* Preserve whitespace for typing effect */
+    font-size: 18px;
+    line-height: 1.5;
+    border: 1px solid #2e8b57; /* Soft green border */
+    padding: 10px;
+    background-color: #000000; /* Black background for terminal */
+    color: #98fb98; /* Light green text color */
+    overflow: hidden; /* Hide overflow for typing effect */
 }
 
-.lyrics {
-    font-size: 24px;
-    margin: 20px 0;
-    min-height: 100px; /* Ensure space for lyrics */
+button {
+    background-color: #2e8b57; /* Soft green button */
+    color: #ffffff; /* White text */
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #3cb371; /* Slightly darker green on hover */
 }

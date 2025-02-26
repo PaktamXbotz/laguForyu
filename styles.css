@@ -44,9 +44,12 @@ body {
 #lyrics {
     white-space: pre-wrap;
     padding: 20px;
-    font-size: 18px;
+    font-size: 22px; /* Increased font size */
     font-weight: bold;
     font-family: monospace;
+    color: #333; /* Added text color */
+    line-height: 1.6; /* Improved line spacing */
+    text-align: center; /* Center alignment */
 }
 
 #playButton {

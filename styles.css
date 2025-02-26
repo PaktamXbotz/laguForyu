@@ -2,13 +2,13 @@ body {
     background-color: #1e1e1e; /* Dark background for terminal effect */
     color: #ffffff; /* Default text color */
     font-family: 'Menlo', 'Monaco', 'Courier New', monospace; /* Monospace font for terminal look */
-    padding: 20px; /* Padding around the body */
+    margin: 0; /* Remove default margin */
 }
 
 #lyrics {
     background-color: #1e1e1e; /* Darker background for the terminal */
     border: 1px solid #00ff00; /* Green border for terminal effect */
-    padding: 10px; /* Padding inside the terminal */
+    padding: 0; /* Remove padding inside the terminal */
     height: 100vh; /* Full height for the terminal */
     overflow-y: auto; /* Scroll if content overflows */
     white-space: pre-wrap; /* Preserve whitespace for typing effect */
@@ -33,5 +33,8 @@ body {
     top: 10px; /* Position at the top */
     left: 50%; /* Center horizontally */
     transform: translateX(-50%); /* Adjust for centering */
-    /* Additional styles for circles can be added here */
+    width: 20px; /* Set width for circles */
+    height: 20px; /* Set height for circles */
+    background-color: #00ff00; /* Green color for circles */
+    border-radius: 50%; /* Make circles round */
 }

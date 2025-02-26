@@ -1,30 +1,16 @@
 body {
-    font-family: 'Courier New', Courier, monospace;
-    background-color: #f0f8ff; /* Light background for the rest of the page */
-    padding: 20px;
+    font-family: 'Courier New', Courier, monospace; /* Monospace font for terminal look */
+    background-color: #1e1e1e; /* Dark background */
+    color: #B2BEB5; /* Sage green text color */
     margin: 0;
+    padding: 20px;
 }
 
 #lyrics {
-    white-space: pre; /* Preserve whitespace for typing effect */
-    font-size: 18px;
-    line-height: 1.5;
-    border: 1px solid #2e8b57; /* Soft green border */
+    border: 1px solid #B2BEB5; /* Sage green border to mimic terminal */
     padding: 10px;
-    background-color: #000000; /* Black background for terminal */
-    color: #98fb98; /* Light green text color */
-    overflow: hidden; /* Hide overflow for typing effect */
-}
-
-button {
-    background-color: #2e8b57; /* Soft green button */
-    color: #ffffff; /* White text */
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-button:hover {
-    background-color: #3cb371; /* Slightly darker green on hover */
+    background-color: #000; /* Black background for the lyrics container */
+    height: 500px; /* Increased height for better visibility */
+    overflow-y: auto; /* Scrollable if content exceeds height */
+    white-space: pre-wrap; /* Preserve whitespace for typing effect */
 }

@@ -87,10 +87,11 @@ const displayAsciiArt = () => {
 };
 
 const simulateTerminalInput = () => {
-    typeWriter("<span class='prompt'>nijxm@aloneHost $ play music</span>\n", 0, () => {
-        audio.play(); // Autoplay music
+    typeWriter("nijxm@aloneHost $ play music\n", 0, () => { // No HTML tags
         displayLyrics(); // Start displaying lyrics
+        audio.play(); // Autoplay music after typing
     });
+
 };
 
 audio.addEventListener('play', () => {

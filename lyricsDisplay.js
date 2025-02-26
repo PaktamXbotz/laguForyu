@@ -69,14 +69,17 @@ const displayLyrics = () => {
         if (currentIndex < lyrics.length) {
             const { time, text } = lyrics[currentIndex];
             if (audio.currentTime >= time - 0.5) {
-                lyricsContainer.innerHTML = ''; // Clear previous lyrics
+                // Only clear if it's the first lyric
+                if (currentIndex === 0) {
+                    lyricsContainer.innerHTML = '';
+                }
                 typeWriter(text + '\n\n', 0, () => {
                     currentIndex++;
-                    // Check if next lyric should be displayed immediately
+                    // Immediately check for next lyric
                     if (currentIndex < lyrics.length && audio.currentTime >= lyrics[currentIndex].time - 0.5) {
                         displayLyrics();
                     } else {
-                        setTimeout(displayLyrics, 300); // Reduced delay for smoother transitions
+                        setTimeout(displayLyrics, 100); // Minimal delay
                     }
                 });
             } else {
@@ -85,6 +88,8 @@ const displayLyrics = () => {
         } else {
             displayAsciiArt();
         }
+
+
     } catch (error) {
         console.error('Error displaying lyrics:', error);
         lyricsContainer.innerHTML = 'Error: Unable to display lyrics. Please refresh the page.';
@@ -114,10 +119,17 @@ const simulateTerminalInput = () => {
 
         playButton.addEventListener('click', () => {
             console.log('Play button clicked');
-            audio.play();
-            currentIndex = 0; // Reset index when audio plays
-            displayLyrics(); // Start displaying lyrics immediately
+            // Ensure audio is ready before playing
+            if (audio.readyState >= 2) {
+                audio.play();
+                currentIndex = 0; // Reset index when audio plays
+                displayLyrics(); // Start displaying lyrics immediately
+            } else {
+                console.error('Audio not ready to play');
+                lyricsContainer.innerHTML = 'Error: Audio not loaded. Please wait...';
+            }
         });
+
         
         pauseButton.addEventListener('click', () => {
             console.log('Pause button clicked');

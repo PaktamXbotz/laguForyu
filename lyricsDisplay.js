@@ -64,6 +64,8 @@ const displayLyrics = () => {
             throw new Error('Audio or lyrics container not found');
         }
 
+        console.log(`Current Time: ${audio.currentTime}, Current Index: ${currentIndex}`);
+
         if (currentIndex < lyrics.length) {
             const { time, text } = lyrics[currentIndex];
             if (audio.currentTime >= time - 0.5) {
@@ -107,7 +109,8 @@ const simulateTerminalInput = () => {
         playButton.addEventListener('click', () => {
             console.log('Play button clicked');
             audio.play();
-            setTimeout(displayLyrics, 800); // Adjusted delay for better sync
+            currentIndex = 0; // Reset index when audio plays
+            displayLyrics(); // Start displaying lyrics immediately
         });
         
         pauseButton.addEventListener('click', () => {

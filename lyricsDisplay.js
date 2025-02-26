@@ -61,10 +61,9 @@ const displayLyrics = () => {
     if (currentIndex < lyrics.length) {
         const { time, text } = lyrics[currentIndex];
         if (audio.currentTime >= time - 0.5) {
-            typeWriter(`<span class='lyrics'>${text}</span><br><br>`, 0, () => { // Add spacing between lines
-                currentIndex++; // Move to the next lyric
-                setTimeout(displayLyrics, 500); // Delay before displaying the next lyric
-            });
+            lyricsContainer.innerHTML += text + '\n\n'; // Directly append lyrics without span
+            currentIndex++; // Move to the next lyric
+            setTimeout(displayLyrics, 500); // Delay before displaying the next lyric
         } else {
             requestAnimationFrame(displayLyrics); // Continue checking the time
         }
@@ -75,11 +74,9 @@ const displayLyrics = () => {
 
 const displayAsciiArt = () => {
     const asciiArt = `
-        <span class='ascii-art'>
         .-.-.
        (     )
         '-.-'
-        </span>
     `;
     typeWriter(asciiArt, 0, () => {
         // ASCII art displayed
@@ -88,13 +85,16 @@ const displayAsciiArt = () => {
 
 const simulateTerminalInput = () => {
     typeWriter("nijxm@aloneHost $ play music\n", 0, () => { // No HTML tags
-        displayLyrics(); // Start displaying lyrics
         audio.play(); // Autoplay music after typing
+        setTimeout(displayLyrics, 1000); // Start displaying lyrics after a delay
     });
+};
 
+// Start the terminal simulation when the page loads
+window.onload = () => {
+    simulateTerminalInput(); // Start the terminal simulation
 };
 
 audio.addEventListener('play', () => {
     currentIndex = 0; // Reset index when audio plays
-    simulateTerminalInput(); // Start the terminal simulation
 });

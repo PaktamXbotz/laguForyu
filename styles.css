@@ -15,6 +15,18 @@ body {
     position: relative; /* Position relative for absolute positioning of circles */
 }
 
+.prompt {
+    color: #00ff00; /* Green color for terminal prompt */
+}
+
+.lyrics {
+    color: #d3d3d3; /* Light gray for lyrics text */
+}
+
+.ascii-art {
+    color: #ff0000; /* Red color for ASCII art */
+}
+
 /* Styles for circles */
 .circle {
     position: absolute; /* Position circles absolutely */
@@ -22,16 +34,4 @@ body {
     left: 50%; /* Center horizontally */
     transform: translateX(-50%); /* Adjust for centering */
     /* Additional styles for circles can be added here */
-}
-
-.prompt {
-    color: #8FBC8F; /* Sage green for the terminal prompt */
-}
-
-.lyrics {
-    color: #D8CBAF; /* Latte color for lyrics text */
-}
-
-.ascii-art {
-    color: #FF0000; /* Red color for ASCII art */
 }

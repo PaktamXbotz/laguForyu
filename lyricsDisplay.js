@@ -47,47 +47,76 @@ const lyricsContainer = document.getElementById('lyrics');
 const audio = document.getElementById('audio');
 let currentIndex = 0; // Track the current index of the lyrics
 
+const typingSpeed = 50; // Adjustable typing speed in milliseconds
 const typeWriter = (text, i, callback) => {
     if (i < text.length) {
         lyricsContainer.innerHTML += text.charAt(i);
         i++;
-        setTimeout(() => typeWriter(text, i, callback), 100); // Slow down typing speed
+        setTimeout(() => typeWriter(text, i, callback), typingSpeed);
     } else {
         callback();
     }
 };
 
 const displayLyrics = () => {
-    if (currentIndex < lyrics.length) {
-        const { time, text } = lyrics[currentIndex];
-        if (audio.currentTime >= time - 0.5) {
-            typeWriter(text + '\n\n', 0, () => { // Add typing effect for lyrics
-                currentIndex++; // Move to the next lyric
-                setTimeout(displayLyrics, 500); // Delay before displaying the next lyric
-            });
-        } else {
-            requestAnimationFrame(displayLyrics); // Continue checking the time
+    try {
+        if (!audio || !lyricsContainer) {
+            throw new Error('Audio or lyrics container not found');
         }
-    } else {
-        displayAsciiArt(); // Display ASCII art after all lyrics are shown
+
+        if (currentIndex < lyrics.length) {
+            const { time, text } = lyrics[currentIndex];
+            if (audio.currentTime >= time - 0.5) {
+                lyricsContainer.innerHTML = ''; // Clear previous lyrics
+                typeWriter(text + '\n\n', 0, () => {
+                    currentIndex++;
+                    setTimeout(displayLyrics, 300); // Reduced delay for smoother transitions
+                });
+            } else {
+                requestAnimationFrame(displayLyrics);
+            }
+        } else {
+            displayAsciiArt();
+        }
+    } catch (error) {
+        console.error('Error displaying lyrics:', error);
+        lyricsContainer.innerHTML = 'Error: Unable to display lyrics. Please refresh the page.';
     }
 };
 
 const displayAsciiArt = () => {
     const asciiArt = `
-        .-.-.
-       (     )
-        '-.-'
+        🎵  🎶
+       MUSIC ENDED
+        🎵  🎶
     `;
     typeWriter(asciiArt, 0, () => {
-        // ASCII art displayed
+        lyricsContainer.style.color = '#ffcc00'; // Change color for end message
     });
 };
 
 const simulateTerminalInput = () => {
-    typeWriter("nijxm@aloneHost $ play music\n", 0, () => { // No HTML tags
-        audio.play(); // Autoplay music after typing
-        setTimeout(displayLyrics, 1000); // Start displaying lyrics after a delay
+    typeWriter("nijxm@aloneHost $ play music\n", 0, () => {
+        const playButton = document.getElementById('playButton');
+        const pauseButton = document.getElementById('pauseButton');
+        
+        if (!playButton || !pauseButton) {
+            throw new Error('Play/Pause buttons not found');
+        }
+
+        playButton.addEventListener('click', () => {
+            try {
+                audio.play();
+                setTimeout(displayLyrics, 800); // Adjusted delay for better sync
+            } catch (error) {
+                console.error('Error playing audio:', error);
+                lyricsContainer.innerHTML = 'Error: Unable to play audio. Please check your connection.';
+            }
+        });
+        
+        pauseButton.addEventListener('click', () => {
+            audio.pause();
+        });
     });
 };
 
@@ -98,4 +127,12 @@ window.onload = () => {
 
 audio.addEventListener('play', () => {
     currentIndex = 0; // Reset index when audio plays
+    lyricsContainer.innerHTML = ''; // Clear lyrics on new play
+    lyricsContainer.style.color = '#ffffff'; // Reset text color
+});
+
+// Add error handling for audio
+audio.addEventListener('error', (e) => {
+    console.error('Audio error:', e);
+    lyricsContainer.innerHTML = 'Error: Unable to load audio. Please check the file.';
 });

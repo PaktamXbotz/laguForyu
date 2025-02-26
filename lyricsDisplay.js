@@ -61,9 +61,10 @@ const displayLyrics = () => {
     if (currentIndex < lyrics.length) {
         const { time, text } = lyrics[currentIndex];
         if (audio.currentTime >= time - 0.5) {
-            lyricsContainer.innerHTML += text + '\n\n'; // Directly append lyrics without span
-            currentIndex++; // Move to the next lyric
-            setTimeout(displayLyrics, 500); // Delay before displaying the next lyric
+            typeWriter(text + '\n\n', 0, () => { // Add typing effect for lyrics
+                currentIndex++; // Move to the next lyric
+                setTimeout(displayLyrics, 500); // Delay before displaying the next lyric
+            });
         } else {
             requestAnimationFrame(displayLyrics); // Continue checking the time
         }
@@ -71,6 +72,7 @@ const displayLyrics = () => {
         displayAsciiArt(); // Display ASCII art after all lyrics are shown
     }
 };
+        
 
 const displayAsciiArt = () => {
     const asciiArt = `

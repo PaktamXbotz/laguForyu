@@ -72,7 +72,12 @@ const displayLyrics = () => {
                 lyricsContainer.innerHTML = ''; // Clear previous lyrics
                 typeWriter(text + '\n\n', 0, () => {
                     currentIndex++;
-                    setTimeout(displayLyrics, 300); // Reduced delay for smoother transitions
+                    // Check if next lyric should be displayed immediately
+                    if (currentIndex < lyrics.length && audio.currentTime >= lyrics[currentIndex].time - 0.5) {
+                        displayLyrics();
+                    } else {
+                        setTimeout(displayLyrics, 300); // Reduced delay for smoother transitions
+                    }
                 });
             } else {
                 requestAnimationFrame(displayLyrics);
@@ -85,6 +90,7 @@ const displayLyrics = () => {
         lyricsContainer.innerHTML = 'Error: Unable to display lyrics. Please refresh the page.';
     }
 };
+
 
 const displayAsciiArt = () => {
     const asciiArt = `

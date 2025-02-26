@@ -43,18 +43,16 @@ const lyrics = [
     { time: 175, text: "And please open a door and again restore this broken piece of me" },
 ];
 
-const lyricsContainer = document.getElementById('lyrics');
-const audio = document.getElementById('audio');
-let currentIndex = 0; // Track the current index of the lyrics
+const titleContainer = document.getElementById('title');
+const commandContainer = document.getElementById('command');
 
-const typeWriter = (text, i, callback) => {
-    if (i < text.length) {
-        lyricsContainer.innerHTML += text.charAt(i);
-        i++;
-        setTimeout(() => typeWriter(text, i, callback), 50); // Typing speed
-    } else {
-        callback();
-    }
+const typeTitleAndCommand = () => {
+    typeWriter("Now Playing: Your Song Title\n", 0, () => {
+        typeWriter("Command: play music\n", 0, () => {
+            audio.play(); // Autoplay music
+            displayLyrics(); // Start displaying lyrics
+        });
+    });
 };
 
 const displayLyrics = () => {
@@ -67,7 +65,7 @@ const displayLyrics = () => {
             if (wordIndex < words.length) {
                 typeWriter(words[wordIndex] + ' ', 0, () => {
                     wordIndex++; // Move to the next word
-                    setTimeout(typeNextWord, 50); // Delay before typing the next word
+                    setTimeout(typeNextWord, 100); // Delay before typing the next word
                 });
             } else {
                 currentIndex++; // Move to the next lyric
@@ -85,5 +83,6 @@ const displayLyrics = () => {
 
 audio.addEventListener('play', () => {
     currentIndex = 0; // Reset index when audio plays
-    displayLyrics(); // Start displaying lyrics
+    typeTitleAndCommand(); // Start typing title and command
+
 });

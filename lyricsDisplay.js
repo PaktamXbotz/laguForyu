@@ -72,7 +72,6 @@ const displayLyrics = () => {
         displayAsciiArt(); // Display ASCII art after all lyrics are shown
     }
 };
-        
 
 const displayAsciiArt = () => {
     const asciiArt = `

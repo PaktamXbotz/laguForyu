@@ -50,39 +50,20 @@ const typeTitleAndCommand = () => {
     typeWriter("Now Playing: Your Song Title\n", 0, () => {
         typeWriter("Command: play music\n", 0, () => {
             audio.play(); // Autoplay music
-            displayLyrics(); // Start displaying lyrics
+            typeNextLyric(); // Start typing the lyrics
         });
     });
 };
 
-const displayLyrics = () => {
+const typeNextLyric = () => {
     if (currentIndex < lyrics.length) {
-        const { time, text } = lyrics[currentIndex];
-        const words = text.split(' '); // Split the text into words
-        let wordIndex = 0; // Track the current word index
-
-        const typeNextWord = () => {
-            if (wordIndex < words.length) {
-                typeWriter(words[wordIndex] + ' ', 0, () => {
-                    wordIndex++; // Move to the next word
-                    setTimeout(typeNextWord, 100); // Delay before typing the next word
-                });
-            } else {
-                currentIndex++; // Move to the next lyric
-                setTimeout(displayLyrics, 500); // Delay before displaying the next lyric
-            }
-        };
-
-        if (audio.currentTime >= time - 0.5) {
-            typeNextWord(); // Start typing the words
-        } else {
-            requestAnimationFrame(displayLyrics); // Continue checking the time
-        }
+        const { text } = lyrics[currentIndex];
+        const formattedText = text.replace(/, /g, ',<br>'); // Format text to include line breaks
+        typeWriter(formattedText + '<br><br>', 0, () => { // Add paragraph spacing
+            currentIndex++; // Move to the next lyric
+            setTimeout(typeNextLyric, 500); // Delay before typing the next lyric
+        });
     }
 };
 
-audio.addEventListener('play', () => {
-    currentIndex = 0; // Reset index when audio plays
-    typeTitleAndCommand(); // Start typing title and command
-
-});
+typeTitleAndCommand(); // Start typing title and command

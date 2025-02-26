@@ -105,16 +105,13 @@ const simulateTerminalInput = () => {
         }
 
         playButton.addEventListener('click', () => {
-            try {
-                audio.play();
-                setTimeout(displayLyrics, 800); // Adjusted delay for better sync
-            } catch (error) {
-                console.error('Error playing audio:', error);
-                lyricsContainer.innerHTML = 'Error: Unable to play audio. Please check your connection.';
-            }
+            console.log('Play button clicked');
+            audio.play();
+            setTimeout(displayLyrics, 800); // Adjusted delay for better sync
         });
         
         pauseButton.addEventListener('click', () => {
+            console.log('Pause button clicked');
             audio.pause();
         });
     });
@@ -129,6 +126,7 @@ audio.addEventListener('play', () => {
     currentIndex = 0; // Reset index when audio plays
     lyricsContainer.innerHTML = ''; // Clear lyrics on new play
     lyricsContainer.style.color = '#ffffff'; // Reset text color
+    console.log('Audio started playing');
 });
 
 // Add error handling for audio

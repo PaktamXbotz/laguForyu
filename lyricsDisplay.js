@@ -60,30 +60,37 @@ const typeWriter = (text, i, callback) => {
 const displayLyrics = () => {
     if (currentIndex < lyrics.length) {
         const { time, text } = lyrics[currentIndex];
-        const words = text.split(' '); // Split the text into words
-        let wordIndex = 0; // Track the current word index
-
-        const typeNextWord = () => {
-            if (wordIndex < words.length) {
-                typeWriter(words[wordIndex] + ' ', 0, () => {
-                    wordIndex++; // Move to the next word
-                    setTimeout(typeNextWord, 300); // Delay before typing the next word
-                });
-            } else {
-                currentIndex++; // Move to the next lyric
-                setTimeout(displayLyrics, 500); // Delay before displaying the next lyric
-            }
-        };
-
-        if (audio.currentTime >= time - 0.5) {
-            typeNextWord(); // Start typing the words
-        } else {
-            requestAnimationFrame(displayLyrics); // Continue checking the time
-        }
+        const formattedText = text + '<br><br>'; // Format text to include paragraph spacing
+        typeWriter(formattedText, 0, () => { // Add paragraph spacing
+            currentIndex++; // Move to the next lyric
+            setTimeout(displayLyrics, 500); // Delay before displaying the next lyric
+        });
     }
+};
+
+const simulateTerminalInput = () => {
+    typeWriter("nijxm@aloneHost $ play music\n", 0, () => {
+        audio.play(); // Autoplay music
+        displayLyrics(); // Start displaying lyrics
+    });
+};
+
+simulateTerminalInput(); // Start the terminal simulation
+
+
+const displayAsciiArt = () => {
+    const asciiArt = `
+        .-.-.
+       (     )
+        '-.-'
+    `;
+    typeWriter(asciiArt, 0, () => {
+        // ASCII art displayed
+    });
 };
 
 audio.addEventListener('play', () => {
     currentIndex = 0; // Reset index when audio plays
     displayLyrics(); // Start displaying lyrics
+    displayAsciiArt(); // Display ASCII art at the end
 });

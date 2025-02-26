@@ -43,8 +43,19 @@ const lyrics = [
     { time: 175, text: "And please open a door and again restore this broken piece of me" },
 ];
 
-const titleContainer = document.getElementById('title');
-const commandContainer = document.getElementById('command');
+const lyricsContainer = document.getElementById('lyrics');
+const audio = document.getElementById('audio');
+let currentIndex = 0; // Track the current index of the lyrics
+
+const typeWriter = (text, i, callback) => {
+    if (i < text.length) {
+        lyricsContainer.innerHTML += text.charAt(i);
+        i++;
+        setTimeout(() => typeWriter(text, i, callback), 50); // Typing speed
+    } else {
+        callback();
+    }
+};
 
 const typeTitleAndCommand = () => {
     typeWriter("Now Playing: Your Song Title\n", 0, () => {

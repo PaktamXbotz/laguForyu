@@ -1,16 +1,27 @@
 body {
+    background-color: #1e1e1e; /* Dark background for terminal effect */
+    color: #ffffff; /* Default text color */
     font-family: 'Courier New', Courier, monospace; /* Monospace font for terminal look */
-    background-color: #1e1e1e; /* Dark background */
-    color: #B2BEB5; /* Sage green text color */
-    margin: 0;
-    padding: 20px;
+    padding: 20px; /* Padding around the body */
 }
 
 #lyrics {
-    border: 1px solid #B2BEB5; /* Sage green border to mimic terminal */
-    padding: 10px;
-    background-color: #000; /* Black background for the lyrics container */
-    height: 500px; /* Increased height for better visibility */
-    overflow-y: auto; /* Scrollable if content exceeds height */
+    background-color: #000000; /* Black background for the terminal */
+    border: 1px solid #00ff00; /* Green border for terminal effect */
+    padding: 10px; /* Padding inside the terminal */
+    height: 400px; /* Fixed height for the terminal */
+    overflow-y: auto; /* Scroll if content overflows */
     white-space: pre-wrap; /* Preserve whitespace for typing effect */
+}
+
+.prompt {
+    color: #8FBC8F; /* Sage green for the terminal prompt */
+}
+
+.lyrics {
+    color: #D8CBAF; /* Latte color for lyrics text */
+}
+
+.ascii-art {
+    color: #FF0000; /* Red color for ASCII art */
 }

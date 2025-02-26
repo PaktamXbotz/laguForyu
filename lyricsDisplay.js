@@ -61,7 +61,7 @@ const displayLyrics = () => {
     if (currentIndex < lyrics.length) {
         const { time, text } = lyrics[currentIndex];
         if (audio.currentTime >= time - 0.5) {
-            typeWriter(text + '\n\n', 0, () => { // Add spacing between lines
+            typeWriter(`<span class='lyrics'>${text}</span><br><br>`, 0, () => { // Add spacing between lines
                 currentIndex++; // Move to the next lyric
                 setTimeout(displayLyrics, 500); // Delay before displaying the next lyric
             });
@@ -75,9 +75,11 @@ const displayLyrics = () => {
 
 const displayAsciiArt = () => {
     const asciiArt = `
+        <span class='ascii-art'>
         .-.-.
        (     )
         '-.-'
+        </span>
     `;
     typeWriter(asciiArt, 0, () => {
         // ASCII art displayed
@@ -85,7 +87,7 @@ const displayAsciiArt = () => {
 };
 
 const simulateTerminalInput = () => {
-    typeWriter("nijxm@aloneHost $ play music\n", 0, () => {
+    typeWriter("<span class='prompt'>nijxm@aloneHost $ play music</span>\n", 0, () => {
         audio.play(); // Autoplay music
         displayLyrics(); // Start displaying lyrics
     });

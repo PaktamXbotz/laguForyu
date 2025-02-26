@@ -1,12 +1,12 @@
 body {
-    background-color: #1e1e1e; /* Dark background for terminal effect */
+    background-color: #2c2c2c; /* Dark background for macOS terminal effect */
     color: #ffffff; /* Default text color */
-    font-family: 'Courier New', Courier, monospace; /* Monospace font for terminal look */
+    font-family: 'Menlo', 'Monaco', 'Courier New', monospace; /* Monospace font for terminal look */
     padding: 20px; /* Padding around the body */
 }
 
 #lyrics {
-    background-color: #000000; /* Black background for the terminal */
+    background-color: #1e1e1e; /* Darker background for the terminal */
     border: 1px solid #00ff00; /* Green border for terminal effect */
     padding: 10px; /* Padding inside the terminal */
     height: 400px; /* Fixed height for the terminal */

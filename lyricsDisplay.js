@@ -57,11 +57,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Initialize audio event listeners
     audio.addEventListener('play', () => {
-        if (audio.currentTime === 0) {
-            currentIndex = 0;
-            lyricsContainer.innerHTML = '';
-        }
-        console.log('Audio started playing');
+        currentIndex = 0; // Reset index when audio plays
+        lyricsContainer.innerHTML = ''; // Clear lyrics container
         displayLyrics(); // Start displaying lyrics immediately
     });
 
@@ -75,17 +72,12 @@ window.addEventListener('DOMContentLoaded', () => {
 
     audio.addEventListener('canplaythrough', () => {
         console.log('Audio is ready to play');
-        // You can enable the play button or perform other UI updates here
     });
 });
 
 let currentIndex = 0; // Track the current index of the lyrics
 
 const typingSpeed = 50; // Adjustable typing speed in milliseconds
-
-const sanitizeText = (text) => {
-    return text.replace(/(.)\1+/g, '$1'); // Remove duplicate characters
-};
 
 const typeWriter = (text, i, callback) => {
     if (i < text.length) {
@@ -108,9 +100,7 @@ const resetLyrics = () => {
 };
 
 const displayLyrics = () => {
-    resetLyrics(); // Reset lyrics before displaying
     scrollToBottom(); // Call scroll function to ensure lyrics are visible
-
 
     try {
         if (!audio || !lyricsContainer) {
@@ -118,23 +108,12 @@ const displayLyrics = () => {
             return;
         }
 
-        console.log(`Current Time: ${audio.currentTime}, Current Index: ${currentIndex}`);
-
         if (currentIndex < lyrics.length) {
             const { time, text } = lyrics[currentIndex];
             if (audio.currentTime >= time - 0.5) {
-                // Only clear if it's the first lyric
-                if (currentIndex === 0) {
-                    lyricsContainer.innerHTML = '';
-                }
-                typeWriter(sanitizeText(text) + '\n\n', 0, () => {
+                typeWriter(text + '\n\n', 0, () => {
                     currentIndex++;
-                    // Immediately check for next lyric
-                    if (currentIndex < lyrics.length && audio.currentTime >= lyrics[currentIndex].time - 0.5) {
-                        displayLyrics();
-                    } else {
-                        setTimeout(displayLyrics, 100); // Minimal delay
-                    }
+                    displayLyrics(); // Immediately check for next lyric
                 });
             } else {
                 requestAnimationFrame(displayLyrics);
@@ -161,8 +140,6 @@ const displayAsciiArt = () => {
 
 const simulateTerminalInput = () => {
     const playButton = document.getElementById('playButton'); 
-    // Ensure user interaction to start audio
-
     const pauseButton = document.getElementById('pauseButton');
     
     if (!playButton || !pauseButton) {
@@ -173,13 +150,10 @@ const simulateTerminalInput = () => {
     resetButton.addEventListener('click', resetLyrics); // Add event listener for reset button
 
     playButton.addEventListener('click', () => {
-
         typeWriter("nijxm@aloneHost $ play music\n", 0, () => {
             console.log('Play button clicked');
-            // Ensure audio is ready before playing
             if (audio.readyState >= 2) {
                 audio.play();
-                currentIndex = 0; // Reset index when audio plays
                 displayLyrics(); // Start displaying lyrics immediately
             } else {
                 console.error('Audio not ready to play. Please wait until it is fully loaded.');
@@ -190,9 +164,7 @@ const simulateTerminalInput = () => {
 
 // Start the terminal simulation when the page loads
 window.onload = () => {
-    // Ensure elements are initialized before starting
     if (lyricsContainer && audio) {
-        // Add loading state
         lyricsContainer.innerHTML = 'Loading...';
         simulateTerminalInput(); // Start displaying lyrics immediately
     } else {

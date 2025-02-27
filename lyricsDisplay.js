@@ -106,11 +106,14 @@ window.addEventListener('DOMContentLoaded', () => {
 
 let currentIndex = 0; // Track the current index of the lyrics
 
-const typingSpeed = 50; // Adjustable typing speed in milliseconds
+const typingSpeed = 100; // Adjustable typing speed in milliseconds
+
 
 const typeWriter = (text, i, callback) => {
+    lyricsContainer.innerHTML = ''; // Clear previous text before typing
     if (i < text.length) {
         lyricsContainer.innerHTML += text.charAt(i); // Use original character without modification
+
 
         i++;
         setTimeout(() => typeWriter(text, i, callback), typingSpeed);
@@ -131,6 +134,10 @@ const resetLyrics = () => {
 
 const displayLyrics = () => {
     scrollToBottom(); // Call scroll function to ensure lyrics are visible
+    // Ensure the lyrics container does not expand
+    lyricsContainer.innerHTML = ''; // Clear previous lyrics
+
+
 
     try {
         if (!audio || !lyricsContainer) {

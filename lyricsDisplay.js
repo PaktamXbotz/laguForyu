@@ -1,3 +1,17 @@
+Here are some improvements to avoid potential issues in your `lyricsDisplay.js` code:
+
+1. **Check for `null` elements more consistently**:
+   Ensure that all necessary elements are checked for `null` before using them.
+
+2. **Use `async/await` for better readability**:
+   Consider using `async/await` for asynchronous operations like `audio.play()`.
+
+3. **Optimize event listeners**:
+   Remove unnecessary event listeners when they are no longer needed.
+
+Here is the improved code:
+
+```javascript
 const lyrics = [
     { time: 5, text: "Yes, I look happy, happy all the time" },
     { time: 8, text: "But you don't see me, see me when I cry" },
@@ -43,13 +57,12 @@ const lyrics = [
     { time: 175, text: "And please open a door and again restore this broken piece of me" },
 ];
 
-// Initialize elements after DOM is fully loaded
 let lyricsContainer, audio;
 let isPaused = false;
 
 window.addEventListener('DOMContentLoaded', () => {
-    lyricsContainer = document.getElementById('lyrics') || null;
-    audio = document.getElementById('audio') || null;
+    lyricsContainer = document.getElementById('lyrics');
+    audio = document.getElementById('audio');
 
     if (!lyricsContainer || !audio) {
         console.error('Could not find lyrics container or audio element');
@@ -163,10 +176,10 @@ const simulateTerminalInput = () => {
         throw new Error('Play button not found');
     }
 
-    playButton.addEventListener('click', () => {
-        typeWriter("nijxm@aloneHost $ play music\n", () => {
+    playButton.addEventListener('click', async () => {
+        await typeWriter("nijxm@aloneHost $ play music\n", async () => {
             if (audio.readyState >= 2) {
-                audio.play();
+                await audio.play();
                 displayLyrics();
             } else {
                 console.error('Audio not ready to play. Please wait until it is fully loaded.');
@@ -174,3 +187,6 @@ const simulateTerminalInput = () => {
         });
     });
 };
+```
+
+These changes should help in avoiding potential issues and improve the readability and maintainability of your code.

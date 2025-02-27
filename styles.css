@@ -1,79 +1,61 @@
+/* General styles for the body */
 body {
-    font-family: 'Courier New', monospace; /* Changed to monospace for terminal look */
-    margin: 0;
-    padding: 0;
-    background-color: #1e1e1e; /* Dark theme background */
-}
-
-
-.container {
-    max-width: 800px;
-    margin: 40px auto;
-    text-align: left; /* Align text to the left for terminal look */
-    padding: 20px;
-    background-color: #2e2e2e; /* Darker background for container */
-    border: 1px solid #444; /* Darker border */
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* More pronounced shadow */
-}
-
-
-.terminal-header {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    margin-bottom: 10px;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
 }
 
-.circle {
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    margin: 0 5px;
-}
-
-.red {
-    background-color: red;
-}
-
-.yellow {
-    background-color: yellow;
-}
-
-.green {
-    background-color: green;
-}
-
+/* Styles for the lyrics container */
 #lyrics {
-    white-space: pre-wrap;
-    padding: 10px; /* Reduced padding for less crowded appearance */
-    font-size: 22px; /* Increased font size */
-    font-weight: bold;
-    font-family: monospace;
-    color: #8FBC8F; /* Sage green for lyrics text */
-    line-height: 1.4; /* Improved line spacing */
-    text-align: left; /* Align text to the left for terminal look */
+    width: 80%;
+    max-width: 600px;
+    height: 300px;
+    overflow-y: auto;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-
-#playButton {
-    padding: 10px 20px;
-    font-size: 18px;
+/* Styles for the buttons */
+button {
+    background-color: #007bff; /* Bootstrap primary color */
+    color: white;
     border: none;
-    border-radius: 5px; /* Reduced border radius for a flatter look */
-    background-color: #4CAF50; /* Green button */
-    color: #fff;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
     cursor: pointer;
-    font-family: monospace; /* Monospace font for button */
+    margin: 10px;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
-
-#playButton:hover {
-    background-color: #3e8e41; /* Darker green on hover */
+/* Hover effect for buttons */
+button:hover {
+    background-color: #0056b3; /* Darker shade for hover */
+    transform: scale(1.05); /* Slightly enlarge on hover */
 }
 
-/* Style for terminal prompt */
-.terminal-prompt {
-    color: #D8BFD8; /* Latte color for terminal prompt */
-    font-weight: bold;
-    font-size: 20px; /* Adjusted size for prompt */
+/* Styles for the play button */
+#playButton {
+    background-color: #28a745; /* Green color for play */
+}
+
+/* Styles for the pause button */
+#pauseButton {
+    background-color: #dc3545; /* Red color for pause */
+}
+
+/* Additional styles for the end message */
+#endMessage {
+    font-size: 20px;
+    color: #ffcc00; /* Yellow color for end message */
+    text-align: center;
 }

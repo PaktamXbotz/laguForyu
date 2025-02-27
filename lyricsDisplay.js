@@ -60,13 +60,16 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Initialize audio event listeners
     audio.addEventListener('play', () => {
-        currentIndex = 0; // Reset index when audio plays
-        lyricsContainer.innerHTML = ''; // Clear lyrics container
-
-        lyricsContainer.innerHTML = ''; // Clear lyrics container
-        console.log('Audio started playing'); // Debugging log
-        displayLyrics(); // Start displaying lyrics immediately
+        if (audio.readyState >= 2) { // Ensure audio is ready to play
+            currentIndex = 0; // Reset index when audio plays
+            lyricsContainer.innerHTML = ''; // Clear lyrics container
+            console.log('Audio started playing'); // Debugging log
+            displayLyrics(); // Start displaying lyrics immediately
+        } else {
+            console.error('Audio not ready to play. Please wait until it is fully loaded.');
+        }
     });
+
 
     audio.addEventListener('pause', () => {
         console.log('Audio paused'); // Debugging log
@@ -114,6 +117,8 @@ let currentIndex = 0; // Track the current index of the lyrics
 const typingSpeed = 100; // Adjustable typing speed in milliseconds
 
 const typeWriter = (text, i, callback) => {
+    lyricsContainer.innerHTML = ''; // Clear previous text before typing
+
     if (i >= text.length) {
         callback(); // Ensure callback is called when done
         return; // Prevent further execution

@@ -62,22 +62,18 @@ window.addEventListener('DOMContentLoaded', () => {
     audio.addEventListener('play', () => {
         currentIndex = 0; // Reset index when audio plays
         lyricsContainer.innerHTML = ''; // Clear lyrics container
-    console.log('Audio started playing'); // Debugging log
-    console.log('Current index:', currentIndex); // Debugging log
 
+        lyricsContainer.innerHTML = ''; // Clear lyrics container
+        console.log('Audio started playing'); // Debugging log
         displayLyrics(); // Start displaying lyrics immediately
     });
 
     audio.addEventListener('pause', () => {
-    console.log('Audio paused'); // Debugging log
-    console.log('Current index:', currentIndex); // Debugging log
-
+        console.log('Audio paused'); // Debugging log
     });
 
     audio.addEventListener('ended', () => {
-    console.log('Audio ended'); // Debugging log
-    console.log('Current index:', currentIndex); // Debugging log
-
+        console.log('Audio ended'); // Debugging log
         lyricsContainer.innerHTML = 'Music has ended.'; // Notify user
     });
 
@@ -91,9 +87,7 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
     audio.addEventListener('canplaythrough', () => {
-    console.log('Audio is ready to play');
-    console.log('Current index:', currentIndex); // Debugging log
-
+        console.log('Audio is ready to play');
     });
 
     // Reset button functionality
@@ -108,18 +102,24 @@ let currentIndex = 0; // Track the current index of the lyrics
 
 const typingSpeed = 100; // Adjustable typing speed in milliseconds
 
-
 const typeWriter = (text, i, callback) => {
     lyricsContainer.innerHTML = ''; // Clear previous text before typing
-    if (i < text.length) {
-        lyricsContainer.innerHTML += text.charAt(i); // Use original character without modification
+    const lines = text.split('<br>'); // Split text into lines for paragraph display
+    let lineIndex = 0; // Track the current line index
 
+    const typeNextLine = () => {
+        if (lineIndex < lines.length) {
+            const line = lines[lineIndex];
+            typeWriter(line, 0, () => {
+                lineIndex++;
+                setTimeout(typeNextLine, 500); // Delay before typing the next line
+            });
+        } else {
+            callback(); // Call the final callback after all lines are typed
+        }
+    };
+    typeNextLine(); // Start typing the first line
 
-        i++;
-        setTimeout(() => typeWriter(text, i, callback), typingSpeed);
-    } else {
-        callback();
-    }
 };
 
 const scrollToBottom = () => {
@@ -134,10 +134,6 @@ const resetLyrics = () => {
 
 const displayLyrics = () => {
     scrollToBottom(); // Call scroll function to ensure lyrics are visible
-    // Ensure the lyrics container does not expand
-    lyricsContainer.innerHTML = ''; // Clear previous lyrics
-
-
 
     try {
         if (!audio || !lyricsContainer) {
@@ -148,7 +144,7 @@ const displayLyrics = () => {
         if (currentIndex < lyrics.length) {
             const { time, text } = lyrics[currentIndex];
             if (audio.currentTime >= time - 0.5) {
-                typeWriter(text + '\n\n', 0, () => {
+                typeWriter(text + '\n', 0, () => {
                     currentIndex++;
                     displayLyrics(); // Immediately check for next lyric
                 });
@@ -199,7 +195,7 @@ const simulateTerminalInput = () => {
 // Start the terminal simulation when the page loads
 window.onload = () => {
     if (lyricsContainer && audio) {
-        lyricsContainer.innerHTML = 'Loading...';
+        lyricsContainer.innerHTML = 'Loading...<br>nijxm@aloneHost<br>$ Play music';
         simulateTerminalInput(); // Start displaying lyrics immediately
     } else {
         console.error('Failed to initialize application');

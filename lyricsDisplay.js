@@ -66,6 +66,7 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     audio.addEventListener('play', () => {
+        console.log('Audio playing...');
         if (audio.readyState >= 2) {
             currentIndex = 0;
             lyricsContainer.innerHTML = '';
@@ -86,6 +87,7 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
     playButton.addEventListener('click', () => {
+        console.log('Play button clicked');
         if (audio.readyState >= 2) {
             audio.play();
             displayLyrics();
@@ -143,10 +145,13 @@ const resetLyrics = () => {
 
 const displayLyrics = () => {
     scrollToBottom();
+    console.log('Current Index:', currentIndex);
 
     if (currentIndex < lyrics.length) {
         const { time, text } = lyrics[currentIndex];
+        console.log('Checking time:', audio.currentTime, 'against', time);
         if (audio.currentTime >= time && !isPaused) {
+            console.log('Displaying lyric:', text);
             if (currentLyric !== text) {
                 currentLyric = text;
                 typeWriter(text, () => {
@@ -167,9 +172,9 @@ const displayLyrics = () => {
 
 const displayAsciiArt = () => {
     const asciiArt = `
-        🎵  🎶
+        🎵 🎶
        MUSIC ENDED
-        🎵  🎶
+        🎵 🎶
     `;
     typeWriter(asciiArt, () => {
         lyricsContainer.style.color = '#ffcc00';

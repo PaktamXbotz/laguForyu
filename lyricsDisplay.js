@@ -102,8 +102,15 @@ const scrollToBottom = () => {
     lyricsContainer.scrollTop = lyricsContainer.scrollHeight; // Scroll to the bottom
 };
 
+const resetLyrics = () => {
+    currentIndex = 0; // Reset the current index
+    lyricsContainer.innerHTML = ''; // Clear the displayed lyrics
+};
+
 const displayLyrics = () => {
+    resetLyrics(); // Reset lyrics before displaying
     scrollToBottom(); // Call scroll function to ensure lyrics are visible
+
 
     try {
         if (!audio || !lyricsContainer) {
@@ -162,7 +169,11 @@ const simulateTerminalInput = () => {
         throw new Error('Play/Pause buttons not found');
     }
 
+    const resetButton = document.getElementById('resetButton'); // Add reset button
+    resetButton.addEventListener('click', resetLyrics); // Add event listener for reset button
+
     playButton.addEventListener('click', () => {
+
         typeWriter("nijxm@aloneHost $ play music\n", 0, () => {
             console.log('Play button clicked');
             // Ensure audio is ready before playing

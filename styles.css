@@ -1,5 +1,5 @@
 body {
-    background-color: #f0f0f0; /* Light background color */
+    background-color: #9caf88; /* Sage green background color */
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
@@ -65,4 +65,5 @@ button:hover {
     padding: 10px;
     background-color: #fafafa; /* Light background for lyrics */
     border-radius: 5px; /* Rounded corners */
+    color: #e6d5b8; /* Latte text color for lyrics */
 }

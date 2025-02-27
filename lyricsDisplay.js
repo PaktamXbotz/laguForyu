@@ -85,7 +85,8 @@ let currentIndex = 0; // Track the current index of the lyrics
 const typingSpeed = 50; // Adjustable typing speed in milliseconds
 const typeWriter = (text, i, callback) => {
     if (i < text.length) {
-        lyricsContainer.innerHTML += text.charAt(i);
+    lyricsContainer.innerHTML += text.charAt(i).replace(/(.)\1+/g, '$1'); // Fix repeated characters
+
         i++;
         setTimeout(() => typeWriter(text, i, callback), typingSpeed);
     } else {
@@ -99,6 +100,8 @@ const scrollToBottom = () => {
 
 const displayLyrics = () => {
     scrollToBottom(); // Call scroll function to ensure lyrics are visible
+    lyricsContainer.scrollTop = lyricsContainer.scrollHeight; // Ensure autoscroll
+
 
     try {
         if (!audio || !lyricsContainer) {

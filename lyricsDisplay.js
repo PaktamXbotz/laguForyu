@@ -52,42 +52,34 @@ window.addEventListener('DOMContentLoaded', () => {
 
     if (!lyricsContainer || !audio) {
         console.error('Could not find lyrics container or audio element');
+        alert('Error: Required elements not found. Please check the HTML structure.');
         return;
     }
 
-    
-    if (!lyricsContainer || !audio) {
-        console.error('Could not find lyrics container or audio element');
-        return;
-    }
+    console.log('Elements initialized:', { lyricsContainer, audio });
 
     // Initialize audio event listeners
     audio.addEventListener('play', () => {
         currentIndex = 0; // Reset index when audio plays
         lyricsContainer.innerHTML = ''; // Clear lyrics container
-        console.log('Audio started playing'); // Debugging log
+    console.log('Audio started playing'); // Debugging log
+    console.log('Current index:', currentIndex); // Debugging log
+
         displayLyrics(); // Start displaying lyrics immediately
     });
 
     audio.addEventListener('pause', () => {
-        console.log('Audio paused'); // Debugging log
+    console.log('Audio paused'); // Debugging log
+    console.log('Current index:', currentIndex); // Debugging log
+
     });
 
     audio.addEventListener('ended', () => {
-        console.log('Audio ended'); // Debugging log
+    console.log('Audio ended'); // Debugging log
+    console.log('Current index:', currentIndex); // Debugging log
+
         lyricsContainer.innerHTML = 'Music has ended.'; // Notify user
     });
-
-
-    audio.addEventListener('pause', () => {
-        console.log('Audio paused'); // Debugging log
-    });
-
-    audio.addEventListener('ended', () => {
-        console.log('Audio ended'); // Debugging log
-        lyricsContainer.innerHTML = 'Music has ended.'; // Notify user
-    });
-
 
     // Provide user-friendly message to start playback
     lyricsContainer.innerHTML = 'Click play to start the music!';
@@ -98,9 +90,17 @@ window.addEventListener('DOMContentLoaded', () => {
         alert('Audio playback failed. Please check the console for more details.'); // Alert user
     });
 
-
     audio.addEventListener('canplaythrough', () => {
-        console.log('Audio is ready to play');
+    console.log('Audio is ready to play');
+    console.log('Current index:', currentIndex); // Debugging log
+
+    });
+
+    // Reset button functionality
+    const resetButton = document.getElementById('resetButton');
+    resetButton.addEventListener('click', () => {
+        console.log('Reset button clicked');
+        resetLyrics();
     });
 });
 
@@ -126,6 +126,7 @@ const scrollToBottom = () => {
 const resetLyrics = () => {
     currentIndex = 0; // Reset the current index
     lyricsContainer.innerHTML = ''; // Clear the displayed lyrics
+    console.log('Lyrics reset'); // Debugging log
 };
 
 const displayLyrics = () => {
@@ -170,13 +171,10 @@ const displayAsciiArt = () => {
 const simulateTerminalInput = () => {
     const playButton = document.getElementById('playButton'); 
     const pauseButton = document.getElementById('pauseButton');
-    
+
     if (!playButton || !pauseButton) {
         throw new Error('Play/Pause buttons not found');
     }
-
-    const resetButton = document.getElementById('resetButton'); // Add reset button
-    resetButton.addEventListener('click', resetLyrics); // Add event listener for reset button
 
     playButton.addEventListener('click', () => {
         typeWriter("nijxm@aloneHost $ play music\n", 0, () => {

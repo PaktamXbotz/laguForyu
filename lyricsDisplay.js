@@ -116,7 +116,10 @@ const typeWriter = (text, callback) => {
 
     const displayNextChar = () => {
         if (i < text.length) {
-            lyricsContainer.innerHTML += text.charAt(i);
+            // Prevent duplicate characters
+            if (text.charAt(i) !== ' ') {
+                lyricsContainer.innerHTML += text.charAt(i);
+            }
             i++;
             setTimeout(displayNextChar, typingSpeed); // Slow down typing speed
         } else {
@@ -125,6 +128,7 @@ const typeWriter = (text, callback) => {
     };
     displayNextChar(); // Start displaying characters
 };
+
 
 const scrollToBottom = () => {
     lyricsContainer.scrollTop = lyricsContainer.scrollHeight; // Scroll to the bottom

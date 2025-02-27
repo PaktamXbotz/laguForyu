@@ -117,6 +117,7 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 let currentIndex = 0; // Track the current index of the lyrics
+let currentLyric = ''; // Track the current lyric text
 
 const typingSpeed = 75; // Adjustable typing speed in milliseconds
 
@@ -145,6 +146,7 @@ const scrollToBottom = () => {
 const resetLyrics = () => {
     currentIndex = 0; // Reset the current index
     lyricsContainer.innerHTML = ''; // Clear the displayed lyrics
+    currentLyric = ''; // Clear the current lyric
     console.log('Lyrics reset'); // Debugging log
     isPaused = false; // Reset paused state
 };
@@ -155,7 +157,8 @@ const displayLyrics = () => {
     if (currentIndex < lyrics.length) {
         const { time, text } = lyrics[currentIndex];
         if (audio.currentTime >= time && !isPaused) { // Adjusted timing to match the lyric's start time and check if not paused
-            if (lyricsContainer.innerHTML !== text) { // Check if the current text is already displayed
+            if (currentLyric !== text) { // Check if the current text is already displayed
+                currentLyric = text; // Update current lyric
                 typeWriter(text, () => {
                     currentIndex++;
                     displayLyrics(); // Immediately check for next lyric

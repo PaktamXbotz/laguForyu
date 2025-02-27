@@ -70,6 +70,15 @@ window.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
+    const playButton = document.getElementById('playButton');
+    const pauseButton = document.getElementById('pauseButton');
+    const resetButton = document.getElementById('resetButton');
+
+    if (!playButton || !pauseButton || !resetButton) {
+        console.error('Could not find one or more control buttons');
+        return;
+    }
+
     audio.addEventListener('play', () => {
         if (audio.readyState >= 2) {
             currentIndex = 0;
@@ -88,6 +97,26 @@ window.addEventListener('DOMContentLoaded', () => {
     audio.addEventListener('ended', () => {
         lyricsContainer.innerHTML = 'Music has ended.';
         resetLyrics();
+    });
+
+    playButton.addEventListener('click', () => {
+        if (audio.readyState >= 2) {
+            audio.play();
+            displayLyrics();
+        } else {
+            console.error('Audio not ready to play. Please wait until it is fully loaded.');
+        }
+    });
+
+    pauseButton.addEventListener('click', () => {
+        audio.pause();
+    });
+
+    resetButton.addEventListener('click', () => {
+        audio.pause();
+        audio.currentTime = 0;
+        resetLyrics();
+        lyricsContainer.innerHTML = 'Click play to start the music!';
     });
 
     lyricsContainer.innerHTML = 'Click play to start the music!';

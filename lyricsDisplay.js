@@ -106,7 +106,8 @@ window.addEventListener('DOMContentLoaded', () => {
             console.log('Reset button clicked');
             resetLyrics();
             audio.currentTime = 0; // Reset audio to the beginning
-            audio.play(); // Restart audio
+            // audio.play(); // Restart audio
+
             isPaused = false; // Reset paused state
         });
     } else {
@@ -154,16 +155,22 @@ const displayLyrics = () => {
     if (currentIndex < lyrics.length) {
         const { time, text } = lyrics[currentIndex];
         if (audio.currentTime >= time && !isPaused) { // Adjusted timing to match the lyric's start time and check if not paused
-            typeWriter(text, () => {
-                currentIndex++;
-                displayLyrics(); // Immediately check for next lyric
-            });
+            if (lyricsContainer.innerHTML !== text) { // Check if the current text is already displayed
+                typeWriter(text, () => {
+                    currentIndex++;
+                    displayLyrics(); // Immediately check for next lyric
+                });
+            } else {
+                currentIndex++; // Move to the next index if the text is already displayed
+                displayLyrics(); // Check for the next lyric
+            }
         } else {
             requestAnimationFrame(displayLyrics);
         }
     } else {
         displayAsciiArt();
     }
+
 };
 
 const displayAsciiArt = () => {

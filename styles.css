@@ -15,14 +15,14 @@ body {
 #lyrics {
     width: 90%; /* Adjusted for better responsiveness */
     max-width: 600px;
-    height: 300px;
-    overflow-y: auto;
-    background-color: black; /* Change to black for terminal effect */
+    height: 300px; 
+    padding: 10px; /* Adjusted padding for better appearance on mobile */
     color: #00ff00; /* Green text for terminal effect */
+    overflow-y: auto; /* Ensure overflow is handled */
+    background-color: black; /* Change to black for terminal effect */
     font-family: 'Courier New', Courier, monospace; /* Monospace font for terminal effect */
     border: 1px solid #00ff00; /* Green border for terminal effect */
     border-radius: 8px;
-    padding: 20px;
     box-shadow: none; /* Remove shadow for terminal effect */
 }
 

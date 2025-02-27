@@ -60,7 +60,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Initialize audio event listeners
     audio.addEventListener('play', () => {
-        console.log('Play event triggered'); // Debugging log
+    console.log('Play event triggered'); // Debugging log
+    console.log('Current audio source:', audio.src); // Log the current audio source
+
         if (audio.readyState >= 2) { // Ensure audio is ready to play
             currentIndex = 0; // Reset index when audio plays
             lyricsContainer.innerHTML = ''; // Clear lyrics container
@@ -84,6 +86,9 @@ window.addEventListener('DOMContentLoaded', () => {
     lyricsContainer.innerHTML = 'Click play to start the music!';
 
     audio.addEventListener('error', (e) => {
+        console.error('Audio error:', e);
+        console.log('Current audio source:', audio.src); // Log the current audio source on error
+
         console.error('Audio error:', e);
         alert('Error: Unable to load audio. Please check the console for more details.'); // Alert user
         lyricsContainer.innerHTML = 'Error: Unable to load audio. Please check the file.'; // Notify user

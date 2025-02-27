@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-
     <title>Lyrics Display</title>
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -21,9 +20,8 @@
         <button id="pauseButton">Pause</button>
         <button id="resetButton">Reset</button> <!-- Added reset button -->
         <div id="lyrics"></div>
-        <audio id="audio"> 
+        <audio id="audio" controls> <!-- Added controls attribute for iOS compatibility -->
            <source src="https://k.top4top.io/m_3345kzhxa1.mp3" type="audio/mpeg">
-
            Your browser does not support the audio element.
         </audio>
     </div>

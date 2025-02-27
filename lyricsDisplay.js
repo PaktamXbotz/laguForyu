@@ -45,7 +45,7 @@ const lyrics = [
 
 // Initialize elements after DOM is fully loaded
 let lyricsContainer, audio;
-let isPaused = false; // Track if the audio is paused
+let isPaused = false;
 
 window.addEventListener('DOMContentLoaded', () => {
     lyricsContainer = document.getElementById('lyrics') || null;
@@ -57,115 +57,77 @@ window.addEventListener('DOMContentLoaded', () => {
         return;
     }
 
-    console.log('Elements initialized:', { lyricsContainer, audio });
-
-    // Initialize audio event listeners
     audio.addEventListener('play', () => {
-        console.log('Play event triggered'); // Debugging log
-        if (audio.readyState >= 2) { // Ensure audio is ready to play
-            currentIndex = 0; // Reset index when audio plays
-            lyricsContainer.innerHTML = ''; // Clear lyrics container
-            console.log('Audio started playing'); // Debugging log
-            displayLyrics(); // Start displaying lyrics immediately
+        if (audio.readyState >= 2) {
+            currentIndex = 0;
+            lyricsContainer.innerHTML = '';
+            displayLyrics();
         } else {
             console.error('Audio not ready to play. Please wait until it is fully loaded.');
         }
     });
 
     audio.addEventListener('pause', () => {
-        console.log('Audio paused'); // Debugging log
-        isPaused = true; // Set paused state
-        // Stop displaying lyrics when paused
-        lyricsContainer.innerHTML = lyricsContainer.innerHTML; // Keep current lyrics displayed
+        isPaused = true;
+        lyricsContainer.innerHTML = lyricsContainer.innerHTML;
     });
-
 
     audio.addEventListener('ended', () => {
-        console.log('Audio ended'); // Debugging log
-        lyricsContainer.innerHTML = 'Music has ended.'; // Notify user
-        resetLyrics(); // Reset lyrics when audio ends
+        lyricsContainer.innerHTML = 'Music has ended.';
+        resetLyrics();
     });
 
-    // Provide user-friendly message to start playback
     lyricsContainer.innerHTML = 'Click play to start the music!';
-
-    audio.addEventListener('error', (e) => {
-        console.error('Audio error:', e);
-        alert('Error: Unable to load audio. Please check the console for more details.'); // Alert user
-        lyricsContainer.innerHTML = 'Error: Unable to load audio. Please check the file.'; // Notify user
-    });
-
-    audio.addEventListener('canplaythrough', () => {
-        console.log('Audio is ready to play');
-    });
-
-    // Reset button functionality
-    const resetButton = document.getElementById('resetButton');
-    if (resetButton) {
-        resetButton.addEventListener('click', () => {
-            console.log('Reset button clicked');
-            resetLyrics();
-            audio.currentTime = 0; // Reset audio to the beginning
-            // audio.play(); // Restart audio
-
-            isPaused = false; // Reset paused state
-        });
-    } else {
-        console.warn('Reset button not found'); // Log a warning if the reset button is not found
-    }
-
 });
 
-let currentIndex = 0; // Track the current index of the lyrics
-let currentLyric = ''; // Track the current lyric text
+let currentIndex = 0;
+let currentLyric = '';
 
-const typingSpeed = 75; // Adjustable typing speed in milliseconds
+const typingSpeed = 75;
 
 const typeWriter = (text, callback) => {
-    console.log('Typing text:', text); // Debugging log
-    lyricsContainer.innerHTML = ''; // Clear previous text before typing
-    let i = 0; // Reset index for typing
+    let i = 0;
+    const newParagraph = document.createElement('p');
+    lyricsContainer.appendChild(newParagraph);
 
     const displayNextChar = () => {
         if (i < text.length) {
-            lyricsContainer.innerHTML += text.charAt(i); // Display the next character
+            newParagraph.innerHTML += text.charAt(i);
             i++;
-            setTimeout(displayNextChar, typingSpeed); // Slow down typing speed
+            setTimeout(displayNextChar, typingSpeed);
         } else {
             callback();
         }
     };
-    displayNextChar(); // Start displaying characters
+    displayNextChar();
 };
 
-
 const scrollToBottom = () => {
-    lyricsContainer.scrollTop = lyricsContainer.scrollHeight; // Scroll to the bottom
+    lyricsContainer.scrollTop = lyricsContainer.scrollHeight;
 };
 
 const resetLyrics = () => {
-    currentIndex = 0; // Reset the current index
-    lyricsContainer.innerHTML = ''; // Clear the displayed lyrics
-    currentLyric = ''; // Clear the current lyric
-    console.log('Lyrics reset'); // Debugging log
-    isPaused = false; // Reset paused state
+    currentIndex = 0;
+    lyricsContainer.innerHTML = '';
+    currentLyric = '';
+    isPaused = false;
 };
 
 const displayLyrics = () => {
-    scrollToBottom(); // Call scroll function to ensure lyrics are visible
+    scrollToBottom();
 
     if (currentIndex < lyrics.length) {
         const { time, text } = lyrics[currentIndex];
-        if (audio.currentTime >= time && !isPaused) { // Adjusted timing to match the lyric's start time and check if not paused
-            if (currentLyric !== text) { // Check if the current text is already displayed
-                currentLyric = text; // Update current lyric
+        if (audio.currentTime >= time && !isPaused) {
+            if (currentLyric !== text) {
+                currentLyric = text;
                 typeWriter(text, () => {
                     currentIndex++;
-                    displayLyrics(); // Immediately check for next lyric
+                    displayLyrics();
                 });
             } else {
-                currentIndex++; // Move to the next index if the text is already displayed
-                displayLyrics(); // Check for the next lyric
+                currentIndex++;
+                displayLyrics();
             }
         } else {
             requestAnimationFrame(displayLyrics);
@@ -173,7 +135,6 @@ const displayLyrics = () => {
     } else {
         displayAsciiArt();
     }
-
 };
 
 const displayAsciiArt = () => {
@@ -183,15 +144,14 @@ const displayAsciiArt = () => {
         🎵  🎶
     `;
     typeWriter(asciiArt, () => {
-        lyricsContainer.style.color = '#ffcc00'; // Change color for end message
+        lyricsContainer.style.color = '#ffcc00';
     });
 };
 
-// Start the terminal simulation when the page loads
 window.onload = () => {
     if (lyricsContainer && audio) {
         lyricsContainer.innerHTML = 'Loading...<br>nijxm@aloneHost<br>$ Play music';
-        simulateTerminalInput(); // Start displaying lyrics immediately
+        simulateTerminalInput();
     } else {
         console.error('Lyrics container or audio element not found on page load.');
     }
@@ -205,10 +165,9 @@ const simulateTerminalInput = () => {
 
     playButton.addEventListener('click', () => {
         typeWriter("nijxm@aloneHost $ play music\n", () => {
-            console.log('Play button clicked');
             if (audio.readyState >= 2) {
                 audio.play();
-                displayLyrics(); // Start displaying lyrics immediately
+                displayLyrics();
             } else {
                 console.error('Audio not ready to play. Please wait until it is fully loaded.');
             }

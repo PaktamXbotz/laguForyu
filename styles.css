@@ -17,26 +17,28 @@ body {
     max-width: 600px;
     height: 300px;
     overflow-y: auto;
-    background-color: #fff;
-    border: 1px solid #ccc;
+    background-color: black; /* Change to black for terminal effect */
+    color: #00ff00; /* Green text for terminal effect */
+    font-family: 'Courier New', Courier, monospace; /* Monospace font for terminal effect */
+    border: 1px solid #00ff00; /* Green border for terminal effect */
     border-radius: 8px;
     padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: none; /* Remove shadow for terminal effect */
 }
+
 
 /* Styles for the buttons */
 button {
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
+    background-color: black; /* Change to black for terminal effect */
+    color: #00ff00; /* Green text for terminal effect */
+    border: 1px solid #00ff00; /* Green border for terminal effect */
+    padding: 10px 20px;
     font-size: 16px;
-    margin: 4px 2px;
     cursor: pointer;
+    margin: 10px;
+    transition: background-color 0.3s, transform 0.2s;
 }
+
 
 /* Styles for the terminal header */
 .terminal-header {

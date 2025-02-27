@@ -131,8 +131,6 @@ const typeWriter = (text, callback) => {
     displayNextChar(); // Start displaying characters
 };
 
-
-
 const scrollToBottom = () => {
     lyricsContainer.scrollTop = lyricsContainer.scrollHeight; // Scroll to the bottom
 };

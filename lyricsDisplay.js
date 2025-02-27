@@ -82,6 +82,11 @@ window.addEventListener('DOMContentLoaded', () => {
 
     audio.addEventListener('error', (e) => {
         console.error('Audio error:', e);
+        alert('Error: Unable to load audio. Please check the console for more details.'); // Alert user
+        lyricsContainer.innerHTML = 'Error: Unable to load audio. Please check the file.'; // Notify user
+
+
+        console.error('Audio error:', e);
         lyricsContainer.innerHTML = 'Error: Unable to load audio. Please check the file.';
         alert('Audio playback failed. Please check the console for more details.'); // Alert user
     });
@@ -92,10 +97,16 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Reset button functionality
     const resetButton = document.getElementById('resetButton');
-    resetButton.addEventListener('click', () => {
-        console.log('Reset button clicked');
-        resetLyrics();
-    });
+    if (resetButton) {
+        resetButton.addEventListener('click', () => {
+            console.log('Reset button clicked');
+            resetLyrics();
+        });
+    } else {
+        console.warn('Reset button not found'); // Log a warning if the reset button is not found
+    }
+
+
 });
 
 let currentIndex = 0; // Track the current index of the lyrics
@@ -103,6 +114,11 @@ let currentIndex = 0; // Track the current index of the lyrics
 const typingSpeed = 100; // Adjustable typing speed in milliseconds
 
 const typeWriter = (text, i, callback) => {
+    if (i >= text.length) {
+        callback(); // Ensure callback is called when done
+        return; // Prevent further execution
+    }
+
     lyricsContainer.innerHTML = ''; // Clear previous text before typing
     const lines = text.split('<br>'); // Split text into lines for paragraph display
     let lineIndex = 0; // Track the current line index
@@ -144,7 +160,8 @@ const displayLyrics = () => {
         if (currentIndex < lyrics.length) {
             const { time, text } = lyrics[currentIndex];
             if (audio.currentTime >= time - 0.5) {
-                typeWriter(text + '\n', 0, () => {
+                typeWriter(text, 0, () => {
+
                     currentIndex++;
                     displayLyrics(); // Immediately check for next lyric
                 });

@@ -1,17 +1,3 @@
-Here are some improvements to avoid potential issues in your `lyricsDisplay.js` code:
-
-1. **Check for `null` elements more consistently**:
-   Ensure that all necessary elements are checked for `null` before using them.
-
-2. **Use `async/await` for better readability**:
-   Consider using `async/await` for asynchronous operations like `audio.play()`.
-
-3. **Optimize event listeners**:
-   Remove unnecessary event listeners when they are no longer needed.
-
-Here is the improved code:
-
-```javascript
 const lyrics = [
     { time: 5, text: "Yes, I look happy, happy all the time" },
     { time: 8, text: "But you don't see me, see me when I cry" },
@@ -216,6 +202,3 @@ const simulateTerminalInput = () => {
         });
     });
 };
-```
-
-These changes should help in avoiding potential issues and improve the readability and maintainability of your code.

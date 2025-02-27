@@ -59,8 +59,19 @@ window.addEventListener('DOMContentLoaded', () => {
     audio.addEventListener('play', () => {
         currentIndex = 0; // Reset index when audio plays
         lyricsContainer.innerHTML = ''; // Clear lyrics container
+        console.log('Audio started playing'); // Debugging log
         displayLyrics(); // Start displaying lyrics immediately
     });
+
+    audio.addEventListener('pause', () => {
+        console.log('Audio paused'); // Debugging log
+    });
+
+    audio.addEventListener('ended', () => {
+        console.log('Audio ended'); // Debugging log
+        lyricsContainer.innerHTML = 'Music has ended.'; // Notify user
+    });
+
 
     // Provide user-friendly message to start playback
     lyricsContainer.innerHTML = 'Click play to start the music!';
@@ -68,7 +79,9 @@ window.addEventListener('DOMContentLoaded', () => {
     audio.addEventListener('error', (e) => {
         console.error('Audio error:', e);
         lyricsContainer.innerHTML = 'Error: Unable to load audio. Please check the file.';
+        alert('Audio playback failed. Please check the console for more details.'); // Alert user
     });
+
 
     audio.addEventListener('canplaythrough', () => {
         console.log('Audio is ready to play');

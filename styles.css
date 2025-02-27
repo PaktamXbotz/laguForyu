@@ -1,75 +1,30 @@
-/* General styles for the body */
 body {
+    background-color: #f0f0f0; /* Light background color */
     font-family: Arial, sans-serif;
-    background-color: #f5f5dc; /* Latte color for background */
-    color: #333;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
     margin: 0;
+    padding: 0;
 }
 
-/* Styles for the lyrics container */
-#lyrics {
-    width: 90%; /* Adjusted for better responsiveness */
-    max-width: 800px; /* Increased width for larger terminal */
-    height: 400px; /* Increased height for larger terminal */
-
-    padding: 10px; /* Adjusted padding for better appearance on mobile */
-    color: #8FBC8F; /* Sage green text for lyrics */
-    overflow-y: auto; /* Ensure overflow is handled */
-    background-color: black; /* Change to black for terminal effect */
-    font-family: 'Courier New', Courier, monospace; /* Monospace font for terminal effect */
-    border: 1px solid #00ff00; /* Green border for terminal effect */
-    border-radius: 8px;
-    box-shadow: none; /* Remove shadow for terminal effect */
+.container {
+    max-width: 800px; /* Set a maximum width for the container */
+    margin: 0 auto; /* Center the container */
+    padding: 20px;
+    background-color: white; /* White background for the container */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
-/* Styles for the buttons */
-button {
-    background-color: black; /* Change to black for terminal effect */
-    color: #00ff00; /* Green text for terminal effect */
-    border: 1px solid #00ff00; /* Green border for terminal effect */
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    margin: 10px;
-    transition: background-color 0.3s, transform 0.2s;
-}
-
-button:hover {
-    background-color: #00ff00; /* Change background on hover */
-    color: black; /* Change text color on hover */
-    transform: scale(1.05); /* Slightly enlarge button on hover */
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-    #lyrics {
-        height: 200px; /* Adjust height for smaller screens */
-    }
-
-    button {
-        padding: 8px 16px; /* Adjust button size for smaller screens */
-        font-size: 14px; /* Adjust font size for smaller screens */
-    }
-}
-
-/* Styles for the terminal header */
 .terminal-header {
     display: flex;
     justify-content: flex-start;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
-/* Styles for the circles */
 .circle {
     width: 15px;
     height: 15px;
     border-radius: 50%;
-    margin: 0 5px;
+    margin-right: 5px;
 }
 
 .red {
@@ -84,9 +39,30 @@ button:hover {
     background-color: green;
 }
 
-/* Additional styles for the end message */
-#endMessage {
-    font-size: 20px;
-    color: #ffcc00; /* Yellow color for end message */
-    text-align: center;
+h1 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+button {
+    margin-right: 10px;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #e0e0e0; /* Light gray on hover */
+}
+
+#lyrics {
+    margin-top: 20px;
+    height: 300px; /* Set a fixed height for the lyrics container */
+    overflow-y: auto; /* Enable vertical scrolling */
+    border: 1px solid #ccc; /* Light border */
+    padding: 10px;
+    background-color: #fafafa; /* Light background for lyrics */
+    border-radius: 5px; /* Rounded corners */
 }

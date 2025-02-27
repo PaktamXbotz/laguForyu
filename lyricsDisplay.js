@@ -45,6 +45,7 @@ const lyrics = [
 
 // Initialize elements after DOM is fully loaded
 let lyricsContainer, audio;
+let isPaused = false; // Track if the audio is paused
 
 window.addEventListener('DOMContentLoaded', () => {
     lyricsContainer = document.getElementById('lyrics') || null;
@@ -73,11 +74,16 @@ window.addEventListener('DOMContentLoaded', () => {
 
     audio.addEventListener('pause', () => {
         console.log('Audio paused'); // Debugging log
+        isPaused = true; // Set paused state
+        // Stop displaying lyrics when paused
+        lyricsContainer.innerHTML = lyricsContainer.innerHTML; // Keep current lyrics displayed
     });
+
 
     audio.addEventListener('ended', () => {
         console.log('Audio ended'); // Debugging log
         lyricsContainer.innerHTML = 'Music has ended.'; // Notify user
+        resetLyrics(); // Reset lyrics when audio ends
     });
 
     // Provide user-friendly message to start playback
@@ -99,29 +105,28 @@ window.addEventListener('DOMContentLoaded', () => {
         resetButton.addEventListener('click', () => {
             console.log('Reset button clicked');
             resetLyrics();
+            audio.currentTime = 0; // Reset audio to the beginning
+            audio.play(); // Restart audio
+            isPaused = false; // Reset paused state
         });
     } else {
         console.warn('Reset button not found'); // Log a warning if the reset button is not found
     }
+
 });
 
 let currentIndex = 0; // Track the current index of the lyrics
 
-const typingSpeed = 100; // Adjustable typing speed in milliseconds
+const typingSpeed = 75; // Adjustable typing speed in milliseconds
 
 const typeWriter = (text, callback) => {
     console.log('Typing text:', text); // Debugging log
     lyricsContainer.innerHTML = ''; // Clear previous text before typing
     let i = 0; // Reset index for typing
-    let lastChar = ''; // Track the last character displayed
 
     const displayNextChar = () => {
         if (i < text.length) {
-            // Prevent duplicate characters
-            if (text.charAt(i) !== lastChar) {
-                lyricsContainer.innerHTML += text.charAt(i);
-                lastChar = text.charAt(i); // Update last character
-            }
+            lyricsContainer.innerHTML += text.charAt(i); // Display the next character
             i++;
             setTimeout(displayNextChar, typingSpeed); // Slow down typing speed
         } else {
@@ -131,6 +136,7 @@ const typeWriter = (text, callback) => {
     displayNextChar(); // Start displaying characters
 };
 
+
 const scrollToBottom = () => {
     lyricsContainer.scrollTop = lyricsContainer.scrollHeight; // Scroll to the bottom
 };
@@ -139,6 +145,7 @@ const resetLyrics = () => {
     currentIndex = 0; // Reset the current index
     lyricsContainer.innerHTML = ''; // Clear the displayed lyrics
     console.log('Lyrics reset'); // Debugging log
+    isPaused = false; // Reset paused state
 };
 
 const displayLyrics = () => {
@@ -146,7 +153,7 @@ const displayLyrics = () => {
 
     if (currentIndex < lyrics.length) {
         const { time, text } = lyrics[currentIndex];
-        if (audio.currentTime >= time - 0.5) {
+        if (audio.currentTime >= time && !isPaused) { // Adjusted timing to match the lyric's start time and check if not paused
             typeWriter(text, () => {
                 currentIndex++;
                 displayLyrics(); // Immediately check for next lyric

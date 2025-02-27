@@ -1,7 +1,7 @@
 /* General styles for the body */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
+    background-color: #f5f5dc; /* Latte color for background */
     color: #333;
     display: flex;
     flex-direction: column;
@@ -14,10 +14,11 @@ body {
 /* Styles for the lyrics container */
 #lyrics {
     width: 90%; /* Adjusted for better responsiveness */
-    max-width: 600px;
-    height: 300px; 
+    max-width: 800px; /* Increased width for larger terminal */
+    height: 400px; /* Increased height for larger terminal */
+
     padding: 10px; /* Adjusted padding for better appearance on mobile */
-    color: #00ff00; /* Green text for terminal effect */
+    color: #8FBC8F; /* Sage green text for lyrics */
     overflow-y: auto; /* Ensure overflow is handled */
     background-color: black; /* Change to black for terminal effect */
     font-family: 'Courier New', Courier, monospace; /* Monospace font for terminal effect */
@@ -36,6 +37,12 @@ button {
     cursor: pointer;
     margin: 10px;
     transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: #00ff00; /* Change background on hover */
+    color: black; /* Change text color on hover */
+    transform: scale(1.05); /* Slightly enlarge button on hover */
 }
 
 /* Responsive adjustments */

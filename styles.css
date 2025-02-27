@@ -13,7 +13,7 @@ body {
 
 /* Styles for the lyrics container */
 #lyrics {
-    width: 80%;
+    width: 90%; /* Adjusted for better responsiveness */
     max-width: 600px;
     height: 300px;
     overflow-y: auto;
@@ -25,7 +25,6 @@ body {
     padding: 20px;
     box-shadow: none; /* Remove shadow for terminal effect */
 }
-
 
 /* Styles for the buttons */
 button {
@@ -39,6 +38,17 @@ button {
     transition: background-color 0.3s, transform 0.2s;
 }
 
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    #lyrics {
+        height: 200px; /* Adjust height for smaller screens */
+    }
+
+    button {
+        padding: 8px 16px; /* Adjust button size for smaller screens */
+        font-size: 14px; /* Adjust font size for smaller screens */
+    }
+}
 
 /* Styles for the terminal header */
 .terminal-header {
@@ -66,7 +76,6 @@ button {
 .green {
     background-color: green;
 }
-
 
 /* Additional styles for the end message */
 #endMessage {

@@ -60,6 +60,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Initialize audio event listeners
     audio.addEventListener('play', () => {
+        console.log('Play event triggered'); // Debugging log
         if (audio.readyState >= 2) { // Ensure audio is ready to play
             currentIndex = 0; // Reset index when audio plays
             lyricsContainer.innerHTML = ''; // Clear lyrics container
@@ -69,6 +70,7 @@ window.addEventListener('DOMContentLoaded', () => {
             console.error('Audio not ready to play. Please wait until it is fully loaded.');
         }
     });
+
 
 
     audio.addEventListener('pause', () => {
@@ -117,7 +119,9 @@ let currentIndex = 0; // Track the current index of the lyrics
 const typingSpeed = 100; // Adjustable typing speed in milliseconds
 
 const typeWriter = (text, i, callback) => {
+    console.log('Typing text:', text); // Debugging log
     lyricsContainer.innerHTML = ''; // Clear previous text before typing
+
 
     if (i >= text.length) {
         callback(); // Ensure callback is called when done
@@ -220,7 +224,3 @@ window.onload = () => {
         lyricsContainer.innerHTML = 'Loading...<br>nijxm@aloneHost<br>$ Play music';
         simulateTerminalInput(); // Start displaying lyrics immediately
     } else {
-        console.error('Failed to initialize application');
-        lyricsContainer.innerHTML = 'Error: Failed to initialize application. Please refresh the page.';
-    }
-};

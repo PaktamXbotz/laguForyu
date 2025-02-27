@@ -47,8 +47,14 @@ const lyrics = [
 let lyricsContainer, audio;
 
 window.addEventListener('DOMContentLoaded', () => {
-    lyricsContainer = document.getElementById('lyrics');
-    audio = document.getElementById('audio');
+    lyricsContainer = document.getElementById('lyrics') || null;
+    audio = document.getElementById('audio') || null;
+
+    if (!lyricsContainer || !audio) {
+        console.error('Could not find lyrics container or audio element');
+        return;
+    }
+
     
     if (!lyricsContainer || !audio) {
         console.error('Could not find lyrics container or audio element');
@@ -62,6 +68,16 @@ window.addEventListener('DOMContentLoaded', () => {
         console.log('Audio started playing'); // Debugging log
         displayLyrics(); // Start displaying lyrics immediately
     });
+
+    audio.addEventListener('pause', () => {
+        console.log('Audio paused'); // Debugging log
+    });
+
+    audio.addEventListener('ended', () => {
+        console.log('Audio ended'); // Debugging log
+        lyricsContainer.innerHTML = 'Music has ended.'; // Notify user
+    });
+
 
     audio.addEventListener('pause', () => {
         console.log('Audio paused'); // Debugging log

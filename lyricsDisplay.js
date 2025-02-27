@@ -113,12 +113,14 @@ const typeWriter = (text, callback) => {
     console.log('Typing text:', text); // Debugging log
     lyricsContainer.innerHTML = ''; // Clear previous text before typing
     let i = 0; // Reset index for typing
+    let lastChar = ''; // Track the last character displayed
 
     const displayNextChar = () => {
         if (i < text.length) {
             // Prevent duplicate characters
-            if (text.charAt(i) !== ' ') {
+            if (text.charAt(i) !== lastChar) {
                 lyricsContainer.innerHTML += text.charAt(i);
+                lastChar = text.charAt(i); // Update last character
             }
             i++;
             setTimeout(displayNextChar, typingSpeed); // Slow down typing speed
@@ -128,6 +130,7 @@ const typeWriter = (text, callback) => {
     };
     displayNextChar(); // Start displaying characters
 };
+
 
 
 const scrollToBottom = () => {

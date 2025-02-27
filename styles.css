@@ -24,34 +24,26 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Styles for the buttons */
-button {
-    background-color: #007bff; /* Bootstrap primary color */
-    color: white;
+/* Basic styles for the play and pause buttons */
+.play-button, .pause-button {
+    background-color: #4CAF50; /* Green */
     border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
     font-size: 16px;
+    margin: 4px 2px;
     cursor: pointer;
-    margin: 10px;
-    transition: background-color 0.3s, transform 0.2s;
 }
 
-/* Hover effect for buttons */
-button:hover {
-    background-color: #0056b3; /* Darker shade for hover */
-    transform: scale(1.05); /* Slightly enlarge on hover */
+/* Additional styles for the lyrics container */
+.lyrics {
+    font-size: 20px;
+    color: #333;
 }
 
-/* Styles for the play button */
-#playButton {
-    background-color: #28a745; /* Green color for play */
-}
-
-/* Styles for the pause button */
-#pauseButton {
-    background-color: #dc3545; /* Red color for pause */
-}
 
 /* Additional styles for the end message */
 #endMessage {

@@ -43,8 +43,32 @@ const lyrics = [
     { time: 175, text: "And please open a door and again restore this broken piece of me" },
 ];
 
-const lyricsContainer = document.getElementById('lyrics');
-const audio = document.getElementById('audio');
+// Initialize elements after DOM is fully loaded
+let lyricsContainer, audio;
+
+window.addEventListener('DOMContentLoaded', () => {
+    lyricsContainer = document.getElementById('lyrics');
+    audio = document.getElementById('audio');
+    
+    if (!lyricsContainer || !audio) {
+        console.error('Could not find lyrics container or audio element');
+        return;
+    }
+
+    // Initialize audio event listeners
+    audio.addEventListener('play', () => {
+        currentIndex = 0;
+        lyricsContainer.innerHTML = '';
+        console.log('Audio started playing');
+    });
+
+    audio.addEventListener('error', (e) => {
+        console.error('Audio error:', e);
+        lyricsContainer.innerHTML = 'Error: Unable to load audio. Please check the file.';
+    });
+});
+
+
 let currentIndex = 0; // Track the current index of the lyrics
 
 const typingSpeed = 50; // Adjustable typing speed in milliseconds
@@ -61,8 +85,10 @@ const typeWriter = (text, i, callback) => {
 const displayLyrics = () => {
     try {
         if (!audio || !lyricsContainer) {
-            throw new Error('Audio or lyrics container not found');
+            console.error('Audio or lyrics container not initialized');
+            return;
         }
+
 
         console.log(`Current Time: ${audio.currentTime}, Current Index: ${currentIndex}`);
 
@@ -140,18 +166,35 @@ const simulateTerminalInput = () => {
 
 // Start the terminal simulation when the page loads
 window.onload = () => {
-    simulateTerminalInput(); // Start the terminal simulation
+    // Ensure elements are initialized before starting
+    if (lyricsContainer && audio) {
+        // Add loading state
+        lyricsContainer.innerHTML = 'Loading...';
+        simulateTerminalInput(); // Start the terminal simulation
+    } else {
+        console.error('Failed to initialize application');
+        lyricsContainer.innerHTML = 'Error: Failed to initialize application. Please refresh the page.';
+    }
 };
+
+
 
 audio.addEventListener('play', () => {
     currentIndex = 0; // Reset index when audio plays
     lyricsContainer.innerHTML = ''; // Clear lyrics on new play
     lyricsContainer.style.color = '#ffffff'; // Reset text color
     console.log('Audio started playing');
+    
+    // Start displaying lyrics immediately
+    displayLyrics();
 });
+
 
 // Add error handling for audio
 audio.addEventListener('error', (e) => {
     console.error('Audio error:', e);
     lyricsContainer.innerHTML = 'Error: Unable to load audio. Please check the file.';
+    
+    // Provide user-friendly message
+    alert('There was an error loading the audio. Please try again later.');
 });

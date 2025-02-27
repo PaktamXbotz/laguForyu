@@ -57,17 +57,28 @@ window.addEventListener('DOMContentLoaded', () => {
 
     // Initialize audio event listeners
     audio.addEventListener('play', () => {
-        currentIndex = 0;
-        lyricsContainer.innerHTML = '';
+        if (audio.currentTime === 0) {
+            currentIndex = 0;
+            lyricsContainer.innerHTML = '';
+        }
         console.log('Audio started playing');
+        displayLyrics(); // Start displaying lyrics immediately
     });
+
+    // Provide user-friendly message to start playback
+    lyricsContainer.innerHTML = 'Click play to start the music!';
+
 
     audio.addEventListener('error', (e) => {
         console.error('Audio error:', e);
         lyricsContainer.innerHTML = 'Error: Unable to load audio. Please check the file.';
     });
-});
 
+    audio.addEventListener('canplaythrough', () => {
+        console.log('Audio is ready to play');
+        // You can enable the play button or perform other UI updates here
+    });
+});
 
 let currentIndex = 0; // Track the current index of the lyrics
 
@@ -82,13 +93,18 @@ const typeWriter = (text, i, callback) => {
     }
 };
 
+const scrollToBottom = () => {
+    lyricsContainer.scrollTop = lyricsContainer.scrollHeight; // Scroll to the bottom
+};
+
 const displayLyrics = () => {
+    scrollToBottom(); // Call scroll function to ensure lyrics are visible
+
     try {
         if (!audio || !lyricsContainer) {
             console.error('Audio or lyrics container not initialized');
             return;
         }
-
 
         console.log(`Current Time: ${audio.currentTime}, Current Index: ${currentIndex}`);
 
@@ -114,14 +130,11 @@ const displayLyrics = () => {
         } else {
             displayAsciiArt();
         }
-
-
     } catch (error) {
         console.error('Error displaying lyrics:', error);
         lyricsContainer.innerHTML = 'Error: Unable to display lyrics. Please refresh the page.';
     }
 };
-
 
 const displayAsciiArt = () => {
     const asciiArt = `
@@ -135,15 +148,17 @@ const displayAsciiArt = () => {
 };
 
 const simulateTerminalInput = () => {
-    typeWriter("nijxm@aloneHost $ play music\n", 0, () => {
-        const playButton = document.getElementById('playButton');
-        const pauseButton = document.getElementById('pauseButton');
-        
-        if (!playButton || !pauseButton) {
-            throw new Error('Play/Pause buttons not found');
-        }
+    const playButton = document.getElementById('playButton'); 
+    // Ensure user interaction to start audio
 
-        playButton.addEventListener('click', () => {
+    const pauseButton = document.getElementById('pauseButton');
+    
+    if (!playButton || !pauseButton) {
+        throw new Error('Play/Pause buttons not found');
+    }
+
+    playButton.addEventListener('click', () => {
+        typeWriter("nijxm@aloneHost $ play music\n", 0, () => {
             console.log('Play button clicked');
             // Ensure audio is ready before playing
             if (audio.readyState >= 2) {
@@ -151,15 +166,8 @@ const simulateTerminalInput = () => {
                 currentIndex = 0; // Reset index when audio plays
                 displayLyrics(); // Start displaying lyrics immediately
             } else {
-                console.error('Audio not ready to play');
-                lyricsContainer.innerHTML = 'Error: Audio not loaded. Please wait...';
+                console.error('Audio not ready to play. Please wait until it is fully loaded.');
             }
-        });
-
-        
-        pauseButton.addEventListener('click', () => {
-            console.log('Pause button clicked');
-            audio.pause();
         });
     });
 };
@@ -170,31 +178,9 @@ window.onload = () => {
     if (lyricsContainer && audio) {
         // Add loading state
         lyricsContainer.innerHTML = 'Loading...';
-        simulateTerminalInput(); // Start the terminal simulation
+        simulateTerminalInput(); // Start displaying lyrics immediately
     } else {
         console.error('Failed to initialize application');
         lyricsContainer.innerHTML = 'Error: Failed to initialize application. Please refresh the page.';
     }
 };
-
-
-
-audio.addEventListener('play', () => {
-    currentIndex = 0; // Reset index when audio plays
-    lyricsContainer.innerHTML = ''; // Clear lyrics on new play
-    lyricsContainer.style.color = '#ffffff'; // Reset text color
-    console.log('Audio started playing');
-    
-    // Start displaying lyrics immediately
-    displayLyrics();
-});
-
-
-// Add error handling for audio
-audio.addEventListener('error', (e) => {
-    console.error('Audio error:', e);
-    lyricsContainer.innerHTML = 'Error: Unable to load audio. Please check the file.';
-    
-    // Provide user-friendly message
-    alert('There was an error loading the audio. Please try again later.');
-});

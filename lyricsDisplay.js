@@ -71,8 +71,6 @@ window.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-
-
     audio.addEventListener('pause', () => {
         console.log('Audio paused'); // Debugging log
     });
@@ -89,11 +87,6 @@ window.addEventListener('DOMContentLoaded', () => {
         console.error('Audio error:', e);
         alert('Error: Unable to load audio. Please check the console for more details.'); // Alert user
         lyricsContainer.innerHTML = 'Error: Unable to load audio. Please check the file.'; // Notify user
-
-
-        console.error('Audio error:', e);
-        lyricsContainer.innerHTML = 'Error: Unable to load audio. Please check the file.';
-        alert('Audio playback failed. Please check the console for more details.'); // Alert user
     });
 
     audio.addEventListener('canplaythrough', () => {
@@ -110,8 +103,6 @@ window.addEventListener('DOMContentLoaded', () => {
     } else {
         console.warn('Reset button not found'); // Log a warning if the reset button is not found
     }
-
-
 });
 
 let currentIndex = 0; // Track the current index of the lyrics
@@ -122,13 +113,11 @@ const typeWriter = (text, i, callback) => {
     console.log('Typing text:', text); // Debugging log
     lyricsContainer.innerHTML = ''; // Clear previous text before typing
 
-
     if (i >= text.length) {
         callback(); // Ensure callback is called when done
         return; // Prevent further execution
     }
 
-    lyricsContainer.innerHTML = ''; // Clear previous text before typing
     const lines = text.split('<br>'); // Split text into lines for paragraph display
     let lineIndex = 0; // Track the current line index
 
@@ -144,7 +133,6 @@ const typeWriter = (text, i, callback) => {
         }
     };
     typeNextLine(); // Start typing the first line
-
 };
 
 const scrollToBottom = () => {
@@ -170,7 +158,6 @@ const displayLyrics = () => {
             const { time, text } = lyrics[currentIndex];
             if (audio.currentTime >= time - 0.5) {
                 typeWriter(text, 0, () => {
-
                     currentIndex++;
                     displayLyrics(); // Immediately check for next lyric
                 });
@@ -224,3 +211,6 @@ window.onload = () => {
         lyricsContainer.innerHTML = 'Loading...<br>nijxm@aloneHost<br>$ Play music';
         simulateTerminalInput(); // Start displaying lyrics immediately
     } else {
+        console.error('Lyrics container or audio element not found on page load.');
+    }
+};

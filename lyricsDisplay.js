@@ -68,7 +68,6 @@ window.addEventListener('DOMContentLoaded', () => {
     // Provide user-friendly message to start playback
     lyricsContainer.innerHTML = 'Click play to start the music!';
 
-
     audio.addEventListener('error', (e) => {
         console.error('Audio error:', e);
         lyricsContainer.innerHTML = 'Error: Unable to load audio. Please check the file.';
@@ -83,10 +82,14 @@ window.addEventListener('DOMContentLoaded', () => {
 let currentIndex = 0; // Track the current index of the lyrics
 
 const typingSpeed = 50; // Adjustable typing speed in milliseconds
+
+const sanitizeText = (text) => {
+    return text.replace(/(.)\1+/g, '$1'); // Remove duplicate characters
+};
+
 const typeWriter = (text, i, callback) => {
     if (i < text.length) {
-    lyricsContainer.innerHTML += text.charAt(i); // Use original character without modification
-
+        lyricsContainer.innerHTML += text.charAt(i); // Use original character without modification
 
         i++;
         setTimeout(() => typeWriter(text, i, callback), typingSpeed);
@@ -101,10 +104,6 @@ const scrollToBottom = () => {
 
 const displayLyrics = () => {
     scrollToBottom(); // Call scroll function to ensure lyrics are visible
-    // Ensure autoscroll
-    scrollToBottom(); // Call scroll function to ensure lyrics are visible
-
-
 
     try {
         if (!audio || !lyricsContainer) {
@@ -121,7 +120,7 @@ const displayLyrics = () => {
                 if (currentIndex === 0) {
                     lyricsContainer.innerHTML = '';
                 }
-                typeWriter(text + '\n\n', 0, () => {
+                typeWriter(sanitizeText(text) + '\n\n', 0, () => {
                     currentIndex++;
                     // Immediately check for next lyric
                     if (currentIndex < lyrics.length && audio.currentTime >= lyrics[currentIndex].time - 0.5) {

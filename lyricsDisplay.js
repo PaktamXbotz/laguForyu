@@ -79,12 +79,12 @@ const displayAsciiArt = () => {
 const displayLyrics = () => {
     if (currentIndex < lyrics.length) {
         const { time, text } = lyrics[currentIndex];
-        if (audio.currentTime >= time - 0.5) {
+        if (audio.currentTime >= time - 0.5 && !lyricsContainer.innerHTML.includes(text)) {
             typeWriter(text + '\n\n', 0, () => { // Add typing effect for lyrics
-                lyricsContainer.scrollTop = lyricsContainer.scrollHeight; // Auto-scroll to the bottom
                 currentIndex++; // Move to the next lyric
-                setTimeout(displayLyrics, 500); // Delay before displaying the next lyric
+                setTimeout(displayLyrics, 1000); // Delay before displaying the next lyric
             });
+
         } else {
             requestAnimationFrame(displayLyrics); // Continue checking the time
         }

@@ -1,20 +1,22 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Courier New', monospace; /* Changed to monospace for terminal look */
     margin: 0;
     padding: 0;
-    background-color: #f0f0f0;
+    background-color: #1e1e1e; /* Dark theme background */
 }
+
 
 .container {
     max-width: 800px;
     margin: 40px auto;
-    text-align: center;
+    text-align: left; /* Align text to the left for terminal look */
     padding: 20px;
-    background-color: #fff;
-    border: 1px solid #ddd;
+    background-color: #2e2e2e; /* Darker background for container */
+    border: 1px solid #444; /* Darker border */
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* More pronounced shadow */
 }
+
 
 .terminal-header {
     display: flex;
@@ -43,25 +45,35 @@ body {
 
 #lyrics {
     white-space: pre-wrap;
-    padding: 20px;
+    padding: 10px; /* Reduced padding for less crowded appearance */
     font-size: 22px; /* Increased font size */
     font-weight: bold;
     font-family: monospace;
-    color: #333; /* Added text color */
-    line-height: 1.6; /* Improved line spacing */
-    text-align: center; /* Center alignment */
+    color: #8FBC8F; /* Sage green for lyrics text */
+    line-height: 1.4; /* Improved line spacing */
+    text-align: left; /* Align text to the left for terminal look */
 }
+
 
 #playButton {
     padding: 10px 20px;
     font-size: 18px;
     border: none;
-    border-radius: 10px;
-    background-color: #4CAF50;
+    border-radius: 5px; /* Reduced border radius for a flatter look */
+    background-color: #4CAF50; /* Green button */
     color: #fff;
     cursor: pointer;
+    font-family: monospace; /* Monospace font for button */
 }
 
+
 #playButton:hover {
-    background-color: #3e8e41;
+    background-color: #3e8e41; /* Darker green on hover */
+}
+
+/* Style for terminal prompt */
+.terminal-prompt {
+    color: #D8BFD8; /* Latte color for terminal prompt */
+    font-weight: bold;
+    font-size: 20px; /* Adjusted size for prompt */
 }

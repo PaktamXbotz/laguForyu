@@ -90,7 +90,7 @@ window.addEventListener('DOMContentLoaded', () => {
         resetLyrics();
     });
 
-   playButton.addEventListener('click', () => {
+  playButton.addEventListener('click', () => {
     console.log('Play button clicked');
     if (audio.readyState >= 2) {
         typeWriter("nijxm@aloneHost $ play music\n", () => {
@@ -101,11 +101,12 @@ window.addEventListener('DOMContentLoaded', () => {
         console.error('Audio not ready to play. Please wait until it is fully loaded.');
     }
 });
-    pauseButton.addEventListener('click', () => {
-        audio.pause();
-    });
 
-   resetButton.addEventListener('click', () => {
+pauseButton.addEventListener('click', () => {
+    audio.pause();
+});
+
+resetButton.addEventListener('click', () => {
     // Clear the lyrics and ASCII art
     lyricsContainer.innerHTML = 'Click play to start the music!';
     // Reset other necessary states

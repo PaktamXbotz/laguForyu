@@ -215,3 +215,5 @@ const simulateTerminalInput = () => {
         });
     });
 };
+simulateTerminalInput();
+});

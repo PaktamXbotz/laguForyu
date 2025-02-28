@@ -184,7 +184,7 @@ const displayAsciiArt = () => {
  🌷🌷🌷🌷🌷🌷🌷🌷🌷
 🌷🌷🌷🌷🌷🌷🌷🌷🌷🌷
     `;
-    typeWriter(asciiArt, () => {
+    typeWriter(asciiArt.replace(/\n/g, '<br>'), () => {
         lyricsContainer.style.color = '#ffcc00';
     });
 };

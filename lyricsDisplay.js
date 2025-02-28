@@ -47,6 +47,7 @@ let lyricsContainer, audio;
 let isPaused = false;
 let currentIndex = 0;
 let currentLyric = '';
+let isTyping = false;
 
 window.addEventListener('DOMContentLoaded', () => {
     lyricsContainer = document.getElementById('lyrics');
@@ -119,6 +120,7 @@ const typeWriter = (text, callback) => {
     let i = 0;
     const newParagraph = document.createElement('p');
     lyricsContainer.appendChild(newParagraph);
+    isTyping = true;
 
     const displayNextChar = () => {
         if (i < text.length) {
@@ -126,6 +128,7 @@ const typeWriter = (text, callback) => {
             i++;
             setTimeout(displayNextChar, typingSpeed);
         } else {
+            isTyping = false;
             callback();
         }
     };
@@ -147,7 +150,7 @@ const displayLyrics = () => {
     scrollToBottom();
     console.log('Current Index:', currentIndex);
 
-    if (currentIndex < lyrics.length) {
+    if (currentIndex < lyrics.length && !isTyping) {
         const { time, text } = lyrics[currentIndex];
         console.log('Checking time:', audio.currentTime, 'against', time);
         if (audio.currentTime >= time && !isPaused) {
@@ -165,7 +168,7 @@ const displayLyrics = () => {
         } else {
             requestAnimationFrame(displayLyrics);
         }
-    } else {
+    } else if (currentIndex >= lyrics.length) {
         displayAsciiArt();
     }
 };

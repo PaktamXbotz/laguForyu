@@ -40,7 +40,7 @@ const lyrics = [
     { time: 164, text: "And there is purpose behind closed doors" },
     { time: 167, text: "When does this all make any sense to me?" },
     { time: 170, text: "God, I know you can set me free" },
-    { time: 175, text: "And please open a door and again restore this broken piece of me" },
+    { time: 175, text: "And please open a door and again restore this broken piece of me" }
 ];
 
 let lyricsContainer, audio;
@@ -90,30 +90,31 @@ window.addEventListener('DOMContentLoaded', () => {
         resetLyrics();
     });
 
-  playButton.addEventListener('click', () => {
-    console.log('Play button clicked');
-    if (audio.readyState >= 2) {
-        typeWriter("nijxm@aloneHost $ play music\n", () => {
-            audio.play();
-            displayLyrics();
-        });
-    } else {
-        console.error('Audio not ready to play. Please wait until it is fully loaded.');
-    }
-});
+    playButton.addEventListener('click', () => {
+        console.log('Play button clicked');
+        if (audio.readyState >= 2) {
+            typeWriter("nijxm@aloneHost $ play music\n", () => {
+                audio.play();
+                displayLyrics();
+            });
+        } else {
+            console.error('Audio not ready to play. Please wait until it is fully loaded.');
+        }
+    });
 
-pauseButton.addEventListener('click', () => {
-    audio.pause();
-});
+    pauseButton.addEventListener('click', () => {
+        audio.pause();
+    });
 
-resetButton.addEventListener('click', () => {
-    // Clear the lyrics and ASCII art
-    lyricsContainer.innerHTML = 'Click play to start the music!';
-    // Reset other necessary states
-    currentIndex = 0;
-    currentLyric = '';
-    isPaused = false;
-    audio.currentTime = 0; // Optionally reset the audio to the start
+    resetButton.addEventListener('click', () => {
+        // Clear the lyrics and ASCII art
+        lyricsContainer.innerHTML = 'Click play to start the music!';
+        // Reset other necessary states
+        currentIndex = 0;
+        currentLyric = '';
+        isPaused = false;
+        audio.currentTime = 0; // Optionally reset the audio to the start
+    });
 });
 
 const typingSpeed = 85;
@@ -204,13 +205,14 @@ const simulateTerminalInput = () => {
     }
 
     playButton.addEventListener('click', () => {
-    console.log('Play button clicked');
-    if (audio.readyState >= 2) {
-        typeWriter("nijxm@aloneHost $ play music\n", () => {
-            audio.play();
-            displayLyrics();
-        });
-    } else {
-        console.error('Audio not ready to play. Please wait until it is fully loaded.');
-    }
- });
+        console.log('Play button clicked');
+        if (audio.readyState >= 2) {
+            typeWriter("nijxm@aloneHost $ play music\n", () => {
+                audio.play();
+                displayLyrics();
+            });
+        } else {
+            console.error('Audio not ready to play. Please wait until it is fully loaded.');
+        }
+    });
+};

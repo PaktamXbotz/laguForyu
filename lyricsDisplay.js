@@ -203,16 +203,14 @@ const simulateTerminalInput = () => {
         throw new Error('Play button not found');
     }
 
-    playButton.addEventListener('click', async () => {
-        await typeWriter("nijxm@aloneHost $ play music\n", async () => {
-            if (audio.readyState >= 2) {
-                await audio.play();
-                displayLyrics();
-            } else {
-                console.error('Audio not ready to play. Please wait until it is fully loaded.');
-            }
+    playButton.addEventListener('click', () => {
+    console.log('Play button clicked');
+    if (audio.readyState >= 2) {
+        typeWriter("nijxm@aloneHost $ play music\n", () => {
+            audio.play();
+            displayLyrics();
         });
-    });
-};
-simulateTerminalInput();
+    } else {
+        console.error('Audio not ready to play. Please wait until it is fully loaded.');
+    }
 });

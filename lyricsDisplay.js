@@ -117,7 +117,7 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-const typingSpeed = 85;
+const typingSpeed = 90;
 
 const typeWriter = (text, callback) => {
     let i = 0;

@@ -143,7 +143,6 @@ const scrollToBottom = () => {
 
 const resetLyrics = () => {
     currentIndex = 0;
-    lyricsContainer.innerHTML = '';
     currentLyric = '';
     isPaused = false;
 };

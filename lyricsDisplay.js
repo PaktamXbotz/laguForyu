@@ -45,6 +45,8 @@ const lyrics = [
 
 let lyricsContainer, audio;
 let isPaused = false;
+let currentIndex = 0;
+let currentLyric = '';
 
 window.addEventListener('DOMContentLoaded', () => {
     lyricsContainer = document.getElementById('lyrics');
@@ -68,8 +70,10 @@ window.addEventListener('DOMContentLoaded', () => {
     audio.addEventListener('play', () => {
         console.log('Audio playing...');
         if (audio.readyState >= 2) {
-            currentIndex = 0;
-            lyricsContainer.innerHTML = '';
+            if (!isPaused) {
+                currentIndex = 0;
+                lyricsContainer.innerHTML = '';
+            }
             displayLyrics();
         } else {
             console.error('Audio not ready to play. Please wait until it is fully loaded.');
@@ -89,8 +93,10 @@ window.addEventListener('DOMContentLoaded', () => {
     playButton.addEventListener('click', () => {
         console.log('Play button clicked');
         if (audio.readyState >= 2) {
-            audio.play();
-            displayLyrics();
+            typeWriter("nijxm@aloneHost $ play music\n", () => {
+                audio.play();
+                displayLyrics();
+            });
         } else {
             console.error('Audio not ready to play. Please wait until it is fully loaded.');
         }
@@ -101,17 +107,11 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
     resetButton.addEventListener('click', () => {
-        audio.pause();
-        audio.currentTime = 0;
-        resetLyrics();
-        lyricsContainer.innerHTML = 'Click play to start the music!';
+        location.reload();
     });
 
     lyricsContainer.innerHTML = 'Click play to start the music!';
 });
-
-let currentIndex = 0;
-let currentLyric = '';
 
 const typingSpeed = 75;
 

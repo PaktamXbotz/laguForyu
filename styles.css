@@ -1,9 +1,9 @@
 body {
-    background-color: #9caf88; /* Sage green background color */
+    background-color: #e6f0e6; /* Lighter sage green background color */
     font-family: 'Roboto', sans-serif; /* Use Roboto font */
     margin: 0;
     padding: 0;
-    color: #333; /* Dark gray text color */
+    color: #4a4a4a; /* Lighter dark gray text color */
 }
 
 .container {
@@ -12,6 +12,7 @@ body {
     padding: 20px;
     border-radius: 10px; /* Rounded corners */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    background-color: #ffffff; /* White background */
 }
 
 .terminal-header {
@@ -42,7 +43,7 @@ body {
 h1 {
     font-size: 28px;
     margin-bottom: 20px;
-    color: #4a4a4a; /* Slightly lighter gray */
+    color: #333; /* Dark gray */
     text-align: center;
 }
 
@@ -53,13 +54,13 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    background-color: #d2b48c; /* Light brown background */
-    color: white; /* White text */
+    background-color: #f5e1d2; /* Lighter light brown background */
+    color: #333; /* Dark gray text */
     transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #b59379; /* Darker light brown on hover */
+    background-color: #e8c8b1; /* Darker light brown on hover */
 }
 
 #lyrics {
@@ -69,14 +70,14 @@ button:hover {
     border: 1px solid #ddd; /* Light border */
     padding: 15px;
     border-radius: 8px; /* Rounded corners */
-    color: #9caf88; /* Sage green text color */
+    color: #8fbf8f; /* Lighter sage green text color */
     font-size: 16px;
     line-height: 1.6; /* Improve readability with line height */
 }
 
 .terminal {
-    background-color: #FAF3E0; /* Latte background */
-    color: #ffffff; /* White text color */
+    background-color: #fbf7f0; /* Lighter latte background */
+    color: #333; /* Dark gray text color */
     padding: 20px;
     border-radius: 8px; /* Rounded corners */
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */

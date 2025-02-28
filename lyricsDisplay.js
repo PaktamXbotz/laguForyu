@@ -213,4 +213,5 @@ const simulateTerminalInput = () => {
     } else {
         console.error('Audio not ready to play. Please wait until it is fully loaded.');
     }
+ });
 });

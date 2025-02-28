@@ -10,7 +10,6 @@ body {
     max-width: 800px; /* Set a maximum width for the container */
     margin: 50px auto; /* Center the container and add top margin */
     padding: 20px;
-    background-color: #FAF3E0; /* Latte background for the container */
     border-radius: 10px; /* Rounded corners */
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
@@ -54,13 +53,13 @@ button {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    background-color: #6b8e23; /* Sage green background */
+    background-color: #d2b48c; /* Light brown background */
     color: white; /* White text */
     transition: background-color 0.3s ease;
 }
 
 button:hover {
-    background-color: #556b2f; /* Darker sage green on hover */
+    background-color: #b59379; /* Darker light brown on hover */
 }
 
 #lyrics {
@@ -69,15 +68,14 @@ button:hover {
     overflow-y: auto; /* Enable vertical scrolling */
     border: 1px solid #ddd; /* Light border */
     padding: 15px;
-    background-color: #FAF3E0; /* Latte background for lyrics */
     border-radius: 8px; /* Rounded corners */
-    color: #333; /* Dark gray text color */
+    color: #9caf88; /* Sage green text color */
     font-size: 16px;
     line-height: 1.6; /* Improve readability with line height */
 }
 
 .terminal {
-    background-color: #9caf88; /* Sage green background */
+    background-color: #FAF3E0; /* Latte background */
     color: #ffffff; /* White text color */
     padding: 20px;
     border-radius: 8px; /* Rounded corners */

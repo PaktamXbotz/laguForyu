@@ -85,6 +85,9 @@ button:hover {
     text-align: left;
 }
 
+.hidden-br {
+    display: none;
+}
 .terminal-header .circle {
     margin-top: 2px; /* Adjust circle alignment */
 }

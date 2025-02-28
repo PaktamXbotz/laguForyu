@@ -87,7 +87,6 @@ window.addEventListener('DOMContentLoaded', () => {
     });
 
     audio.addEventListener('ended', () => {
-        lyricsContainer.innerHTML = 'Music has ended.';
         resetLyrics();
     });
 
@@ -107,14 +106,17 @@ window.addEventListener('DOMContentLoaded', () => {
         audio.pause();
     });
 
-    resetButton.addEventListener('click', () => {
-        location.reload();
-    });
-
+   resetButton.addEventListener('click', () => {
+    // Clear the lyrics and ASCII art
     lyricsContainer.innerHTML = 'Click play to start the music!';
+    // Reset other necessary states
+    currentIndex = 0;
+    currentLyric = '';
+    isPaused = false;
+    audio.currentTime = 0; // Optionally reset the audio to the start
 });
 
-const typingSpeed = 80;
+const typingSpeed = 85;
 
 const typeWriter = (text, callback) => {
     let i = 0;

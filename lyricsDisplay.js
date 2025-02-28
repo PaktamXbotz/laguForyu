@@ -186,7 +186,7 @@ const displayAsciiArt = () => {
 
 window.onload = () => {
     if (lyricsContainer && audio) {
-        lyricsContainer.innerHTML = 'Loading...<br>nijxm@aloneHost<br>$ Play music';
+        lyricsContainer.innerHTML = '<b>Click laa button playy tu!</b>';
     } else {
         console.error('Lyrics container or audio element not found on page load.');
     }

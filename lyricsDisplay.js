@@ -175,9 +175,21 @@ const displayLyrics = () => {
 
 const displayAsciiArt = () => {
     const asciiArt = `
-        🎵 🎶
-       MUSIC ENDED
-        🎵 🎶
+     /\^/`\
+    | \/   |
+    | |    |
+    \ \    /
+     '\\//'
+       ||
+       ||
+       ||
+       ||  ,
+   |\  ||  |\
+   | | ||  | |
+   | | || / /
+    \ \||/ /
+     `\\//`
+    ^^^^^^^^
     `;
     typeWriter(asciiArt, () => {
         lyricsContainer.style.color = '#ffcc00';

@@ -114,7 +114,7 @@ window.addEventListener('DOMContentLoaded', () => {
     lyricsContainer.innerHTML = 'Click play to start the music!';
 });
 
-const typingSpeed = 75;
+const typingSpeed = 80;
 
 const typeWriter = (text, callback) => {
     let i = 0;

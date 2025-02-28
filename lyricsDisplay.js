@@ -186,7 +186,7 @@ const displayAsciiArt = () => {
 🌷🌷🌷🌷🌷🌷🌷🌷🌷🌷
     `;
     typeWriter(asciiArt.replace(/\n/g, '<br class="hidden-br">'), () => {
-        lyricsContainer.style.color = 'linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet)';
+        lyricsContainer.style.backgroundImage = 'linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet)';
         lyricsContainer.style.webkitBackgroundClip = 'text';
         lyricsContainer.style.webkitTextFillColor = 'transparent';
     });

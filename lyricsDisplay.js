@@ -1,220 +1,129 @@
-const lyrics = [
-    { time: 5, text: "Yes, I look happy, happy all the time" },
-    { time: 8, text: "But you don't see me, see me when I cry" },
-    { time: 13, text: "I can't find an open door" },
-    { time: 15, text: "When I try, it breaks me more" },
-    { time: 18, text: "Should I quit and should I go" },
-    { time: 21, text: "Should I leave this all behind?" },
-    { time: 22, text: "Same things happen all the time" },
-    { time: 24, text: "Can't get out off my mind" },
-    { time: 27, text: "Doing things I shouldn't do" },
-    { time: 29, text: "If you ask me, I have no clue" },
-    { time: 30, text: "Yes, I look happy, happy all the time" },
-    { time: 34, text: "But you don't see me, see me when I cry" },
-    { time: 39, text: "'Cause I'm a master, master of pretending" },
-    { time: 43, text: "Lately never ending" },
-    { time: 47, text: "When does this all make any sense to me?" },
-    { time: 50, text: "God, I know you can set me free" },
-    { time: 55, text: "And please open a door and again restore this broken piece of me" },
-    { time: 65, text: "A better treasure chest that was made for more" },
-    { time: 68, text: "And there is purpose behind closed doors" },
-    { time: 73, text: "A better treasure chest, that was made for more" },
-    { time: 78, text: "And there is purpose behind closed doors" },
-    { time: 82, text: "Am I the one who is insane, for not feeling like the same?" },
-    { time: 86, text: "All I want is to be heard, in a world that's full of hurt" },
-    { time: 90, text: "Waking up, searching for a sign, yes, I fall but I still climb" },
-    { time: 94, text: "No, you don't need me to teach, just cause the dream is far to reach" },
-    { time: 103, text: "Take this fear and take that doubt" },
-    { time: 104, text: "Throw'em away before I drown" },
-    { time: 110, text: "Before I drown" },
-    { time: 116, text: "Yes, I look happy, happy all the time" },
-    { time: 120, text: "But you don't see me, see me when I cry" },
-    { time: 125, text: "'Cause I'm a master, master of pretending" },
-    { time: 128, text: "Lately never ending" },
-    { time: 133, text: "When does this all make any sense to me?" },
-    { time: 136, text: "God, I know you can set me free" },
-    { time: 141, text: "And please open a door and again restore this broken piece of me" },
-    { time: 150, text: "A better treasure chest that was made for more" },
-    { time: 155, text: "And there is purpose behind closed doors" },
-    { time: 159, text: "A better treasure chest that was made for more" },
-    { time: 164, text: "And there is purpose behind closed doors" },
-    { time: 167, text: "When does this all make any sense to me?" },
-    { time: 170, text: "God, I know you can set me free" },
-    { time: 175, text: "And please open a door and again restore this broken piece of me" }
-];
+document.addEventListener('DOMContentLoaded', () => {
+    const mainTitle = document.getElementById('main-title');
+    const countdownElement = document.getElementById('countdown');
+    const specialMessage = document.getElementById('special-message');
+    const backgroundTextContainer = document.getElementById('background-text-container');
+    const myAudio = document.getElementById('myAudio');
+    const playMusicButton = document.getElementById('play-music-button');
 
-let lyricsContainer, audio;
-let isPaused = false;
-let currentIndex = 0;
-let currentLyric = '';
-let isTyping = false;
+    // --- KONFIGURASI PENTING - SILA UBAH INI! ---
 
-window.addEventListener('DOMContentLoaded', () => {
-    lyricsContainer = document.getElementById('lyrics');
-    audio = document.getElementById('audio');
+    // 1. Target Tarikh Istimewa (Hari Lahir/Anniversary/Tarikh Penting)
+    // Format: new Date(Tahun, Bulan-1, Hari, Jam, Minit, Saat)
+    // INGAT: Bulan bermula dari 0 (0=Januari, 1=Februari, ... 11=Disember)
+    // Contoh: 15 Julai 2025, jam 8:00 malam -> new Date(2025, 6, 15, 20, 0, 0).getTime()
+    const targetDate = new Date('July 15, 2025 20:00:00').getTime();
 
-    if (!lyricsContainer || !audio) {
-        console.error('Could not find lyrics container or audio element');
-        alert('Error: Required elements not found. Please check the HTML structure.');
-        return;
-    }
+    // 2. Nama Partner Awak
+    const partnerName = "Awak"; // GANTI dengan nama partner awak
 
-    const playButton = document.getElementById('playButton');
-    const pauseButton = document.getElementById('pauseButton');
-    const resetButton = document.getElementById('resetButton');
+    // 3. Mesej Luahan Hati Awak (Ini akan muncul selepas countdown tamat)
+    const confessionText = "Ini adalah luahan hati saya, khas untuk awak. <br> Awak telah mencuri hati saya sejak dulu lagi. <br> Adakah awak sudi menerima cinta saya? ❤️";
 
-    if (!playButton || !pauseButton || !resetButton) {
-        console.error('Could not find one or more control buttons');
-        return;
-    }
+    // 4. Teks Bergerak di Latar Belakang (Boleh tambah banyak lagi!)
+    const backgroundMovingTexts = ["Selamat Hari Jadi", "Cinta Hati Saya", "I Love You", "Jom Couple"];
 
-    audio.addEventListener('play', () => {
-        console.log('Audio playing...');
-        if (audio.readyState >= 2) {
-            if (!isPaused) {
-                currentIndex = 0;
-                lyricsContainer.innerHTML = '';
-            }
-            displayLyrics();
-        } else {
-            console.error('Audio not ready to play. Please wait until it is fully loaded.');
+    // --- END KONFIGURASI ---
+
+
+    // Inisialisasi library Konfeti
+    const jsConfetti = new JSConfetti();
+
+    // Fungsi untuk mengemas kini Countdown
+    function updateCountdown() {
+        const now = new Date().getTime(); // Waktu sekarang
+        const distance = targetDate - now; // Jarak masa ke tarikh target
+
+        // Jika tarikh target telah berlalu
+        if (distance < 0) {
+            countdownElement.innerHTML = "Saatnya Telah Tiba!";
+            mainTitle.innerHTML = `Untuk Kekasih Hati Saya, ${partnerName}!`;
+            specialMessage.innerHTML = confessionText; // Tunjukkan mesej luahan hati
+            specialMessage.classList.remove('hidden'); // Paparkan mesej
+            playMusicButton.classList.remove('hidden'); // Paparkan butang muzik
+            clearInterval(countdownInterval); // Hentikan countdown
+            // triggerConfetti(); // Boleh aktifkan konfeti apabila countdown tamat, atau biarkan selepas butang muzik ditekan
+            return;
         }
-    });
 
-    audio.addEventListener('pause', () => {
-        isPaused = true;
-        lyricsContainer.innerHTML = lyricsContainer.innerHTML;
-    });
+        // Kira hari, jam, minit, saat
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-    audio.addEventListener('ended', () => {
-        resetLyrics();
-    });
+        countdownElement.innerHTML = `Tinggal ${days} Hari, ${hours} Jam, ${minutes} Minit, ${seconds} Saat lagi...`;
+    }
 
-    playButton.addEventListener('click', () => {
-        console.log('Play button clicked');
-        if (audio.readyState >= 2) {
-            typeWriter("nijxm@aloneHost $ play music\n", () => {
-                audio.play();
-                displayLyrics();
+    // Update countdown setiap 1 saat
+    const countdownInterval = setInterval(updateCountdown, 1000);
+    updateCountdown(); // Panggil sekali untuk elak delay pada permulaan
+
+
+    // Fungsi Muzik
+    playMusicButton.addEventListener('click', () => {
+        myAudio.play()
+            .then(() => {
+                console.log("Muzik sedang dimainkan.");
+                playMusicButton.style.display = 'none'; // Sembunyikan butang selepas main
+                triggerConfetti(); // Aktifkan konfeti apabila muzik dimainkan
+            })
+            .catch(error => {
+                console.error("Gagal memainkan muzik:", error);
+                alert("Sila benarkan autoplay untuk muzik (jika pelayar sekat) atau cuba lagi.");
             });
-        } else {
-            console.error('Audio not ready to play. Please wait until it is fully loaded.');
-        }
     });
 
-    pauseButton.addEventListener('click', () => {
-        audio.pause();
+    // Cuba mainkan muzik secara automatik apabila halaman dimuatkan (mungkin disekat oleh pelayar)
+    myAudio.play().catch(() => {
+        console.log("Autoplay muzik disekat oleh pelayar. Butang 'Mainkan Muzik Saya!' akan muncul.");
     });
 
-    resetButton.addEventListener('click', () => {
-        // Clear the lyrics and ASCII art
-        lyricsContainer.innerHTML = 'Click play to start the music!';
-        // Reset other necessary states
-        currentIndex = 0;
-        currentLyric = '';
-        isPaused = false;
-        audio.currentTime = 0; // Optionally reset the audio to the start
-    });
+
+    // Fungsi untuk Hasilkan Teks Berjalan di Latar Belakang
+    function createBackgroundText() {
+        const textContent = backgroundMovingTexts[Math.floor(Math.random() * backgroundMovingTexts.length)];
+        const span = document.createElement('span');
+        span.innerText = textContent;
+
+        // Posisi rawak
+        span.style.left = `${Math.random() * 100}vw`; // Dari mana-mana tempat di lebar skrin
+        span.style.top = `${Math.random() * 100}vh`; // Dari mana-mana tempat di tinggi skrin
+        
+        // Tempoh animasi rawak untuk pelbagai kelajuan
+        span.style.animationDuration = `${Math.random() * 10 + 15}s`;
+        
+        // Saiz fon rawak
+        span.style.fontSize = `${Math.random() * 3 + 2}em`; // Antara 2em hingga 5em
+
+        backgroundTextContainer.appendChild(span);
+
+        // Buang elemen selepas animasi tamat untuk elak terlalu banyak elemen terkumpul
+        span.addEventListener('animationiteration', () => {
+            span.remove();
+            // Buat yang baru setiap kali satu elemen selesai animasi
+            createBackgroundText(); 
+        });
+    }
+
+    // Hasilkan beberapa teks permulaan
+    for(let i=0; i<10; i++) {
+        createBackgroundText();
+    }
+    // Hasilkan teks baru secara berterusan (jika animationiteration tak berfungsi di semua pelayar)
+    // setInterval(createBackgroundText, 1000);
+
+
+    // Fungsi Konfeti (gunakan library js-confetti)
+    function triggerConfetti() {
+        jsConfetti.addConfetti({
+            confettiRadius: 5,
+            confettiNumber: 500,
+            confettiColors: [
+                '#ff0a54', '#ff477e', '#ff7096', '#ff85a1', '#fbb1bd', '#f9bec7', // Warna-warna pink/merah
+                '#88d8b0', '#ffc425', '#ff4d6d', '#fff0f3', '#fcf6bd', '#a9d6e5' // Warna tambahan
+            ],
+        });
+    }
+
 });
-
-const typingSpeed = 90;
-
-const typeWriter = (text, callback) => {
-    let i = 0;
-    const newParagraph = document.createElement('p');
-    lyricsContainer.appendChild(newParagraph);
-    isTyping = true;
-
-    const displayNextChar = () => {
-        if (i < text.length) {
-            newParagraph.innerHTML += text.charAt(i);
-            i++;
-            setTimeout(displayNextChar, typingSpeed);
-        } else {
-            isTyping = false;
-            callback();
-        }
-    };
-    displayNextChar();
-};
-
-const scrollToBottom = () => {
-    lyricsContainer.scrollTop = lyricsContainer.scrollHeight;
-};
-
-const resetLyrics = () => {
-    currentIndex = 0;
-    currentLyric = '';
-    isPaused = false;
-};
-
-const displayLyrics = () => {
-    scrollToBottom();
-    console.log('Current Index:', currentIndex);
-
-    if (currentIndex < lyrics.length && !isTyping) {
-        const { time, text } = lyrics[currentIndex];
-        console.log('Checking time:', audio.currentTime, 'against', time);
-        if (audio.currentTime >= time && !isPaused) {
-            console.log('Displaying lyric:', text);
-            if (currentLyric !== text) {
-                currentLyric = text;
-                typeWriter(text, () => {
-                    currentIndex++;
-                    displayLyrics();
-                });
-            } else {
-                currentIndex++;
-                displayLyrics();
-            }
-        } else {
-            requestAnimationFrame(displayLyrics);
-        }
-    } else if (currentIndex >= lyrics.length) {
-        displayAsciiArt();
-    }
-};
-
-const displayAsciiArt = () => {
-    const asciiArt = `
-      🌷🌷🌷🌷
-     🌷🌷🌷🌷🌷
-    🌷🌷🌷🌷🌷🌷
-   🌷🌷🌷🌷🌷🌷🌷
-  🌷🌷🌷🌷🌷🌷🌷🌷
- 🌷🌷🌷🌷🌷🌷🌷🌷🌷
-🌷🌷🌷🌷🌷🌷🌷🌷🌷🌷
-    `;
-    typeWriter(asciiArt.replace(/\n/g, '<br class="hidden-br">'), () => {
-        lyricsContainer.style.backgroundImage = 'linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet)';
-        lyricsContainer.style.webkitBackgroundClip = 'text';
-        lyricsContainer.style.webkitTextFillColor = 'transparent';
-    });
-};
-
-window.onload = () => {
-    if (lyricsContainer && audio) {
-        lyricsContainer.innerHTML = '<b>Click laa button playy tu!</b>';
-    } else {
-        console.error('Lyrics container or audio element not found on page load.');
-    }
-};
-
-const simulateTerminalInput = () => {
-    const playButton = document.getElementById('playButton');
-    if (!playButton) {
-        throw new Error('Play button not found');
-    }
-
-    playButton.addEventListener('click', () => {
-        console.log('Play button clicked');
-        if (audio.readyState >= 2) {
-            typeWriter("nijxm@aloneHost $ play music\n", () => {
-                audio.play();
-                displayLyrics();
-            });
-        } else {
-            console.error('Audio not ready to play. Please wait until it is fully loaded.');
-        }
-    });
-};

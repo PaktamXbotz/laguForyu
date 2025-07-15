@@ -1,93 +1,152 @@
 body {
-    background-color: #e6f0e6; /* Lighter sage green background color */
-    font-family: 'Roboto', sans-serif; /* Use Roboto font */
     margin: 0;
-    padding: 0;
-    color: #4a4a4a; /* Lighter dark gray text color */
-}
-
-.container {
-    max-width: 800px; /* Set a maximum width for the container */
-    margin: 50px auto; /* Center the container and add top margin */
-    padding: 20px;
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    background-color: #ffffff; /* White background */
-}
-
-.terminal-header {
+    overflow: hidden; /* Penting untuk menguruskan background text */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%); /* Latar belakang gradient lembut */
+    color: #fff; /* Warna teks putih */
     display: flex;
-    justify-content: flex-start;
-    margin-bottom: 20px;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.3); /* Sedikit bayangan pada teks */
 }
 
-.circle {
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    margin-right: 5px;
+/* OVERLAY UNTUK SARANAN PUSING TELEFON */
+.rotate-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.9); /* Latar belakang gelap */
+    color: white;
+    display: flex; /* Akan diubah oleh media query jika dalam landscape */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 1.5em;
+    z-index: 1000; /* Pastikan di atas segala-galanya */
+    padding: 20px;
+    box-sizing: border-box;
 }
 
-.red {
-    background-color: #ff5f56; /* Soft red */
+/* Kontainer utama untuk kandungan laman web */
+.container {
+    position: relative;
+    width: 90vw;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 20px;
+    background-color: rgba(255, 255, 255, 0.2); /* Semi-transparent overlay */
+    padding: 30px;
+    box-sizing: border-box;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    backdrop-filter: blur(5px); /* Efek blur di belakang container */
 }
 
-.yellow {
-    background-color: #ffbd2e; /* Soft yellow */
+/* TEKS BERJALAN DI LATAR BELAKANG */
+.background-text {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    pointer-events: none; /* Supaya tak halang klik pada elemen lain */
 }
 
-.green {
-    background-color: #27c93f; /* Soft green */
+.background-text span {
+    position: absolute;
+    white-space: nowrap; /* Pastikan teks tidak patah baris */
+    opacity: 0.1; /* Sedikit lutsinar */
+    font-size: 4em; /* Saiz besar, akan diubah oleh JS */
+    color: rgba(255, 255, 255, 0.5); /* Warna teks lutsinar */
+    animation: moveText linear infinite; /* Animasi bergerak */
+}
+
+/* Animasi untuk teks berjalan */
+@keyframes moveText {
+    0% { transform: translateX(100vw); } /* Mula dari luar kanan skrin */
+    100% { transform: translateX(-100%); } /* Bergerak sehingga luar kiri skrin */
+}
+
+/* Pembungkus untuk kandungan utama (tajuk, countdown, mesej) */
+.content-wrapper {
+    position: relative; /* Penting untuk z-index di atas background text */
+    z-index: 10;
 }
 
 h1 {
-    font-size: 28px;
+    font-size: 4em;
     margin-bottom: 20px;
-    color: #333; /* Dark gray */
-    text-align: center;
+    animation: bounceIn 1.5s forwards; /* Animasi masuk */
 }
 
-button {
-    margin-right: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
+#countdown {
+    font-size: 2.5em;
+    font-weight: bold;
+    margin-bottom: 30px;
+    letter-spacing: 2px; /* Jarak antara huruf */
+}
+
+#special-message {
+    font-size: 1.8em;
+    line-height: 1.6;
+    margin-top: 40px;
+    color: #ffe0b2; /* Warna lebih cerah untuk mesej utama */
+}
+
+.hidden {
+    display: none; /* Kelas untuk sembunyikan elemen */
+}
+
+/* Butang main muzik */
+#play-music-button {
+    background-color: #ff6f61; /* Merah jambu cerah */
+    color: white;
     border: none;
-    border-radius: 5px;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border-radius: 50px; /* Bentuk bulat */
     cursor: pointer;
-    background-color: #f5e1d2; /* Lighter light brown background */
-    color: #333; /* Dark gray text */
-    transition: background-color 0.3s ease;
+    margin-top: 30px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2); /* Bayangan butang */
+    transition: all 0.3s ease; /* Transisi lembut untuk hover */
 }
 
-button:hover {
-    background-color: #e8c8b1; /* Darker light brown on hover */
+#play-music-button:hover {
+    background-color: #e65241; /* Warna lebih gelap bila hover */
+    transform: translateY(-3px); /* Naik sedikit bila hover */
 }
 
-#lyrics {
-    margin-top: 20px;
-    height: 300px; /* Set a fixed height for the lyrics container */
-    overflow-y: auto; /* Enable vertical scrolling */
-    border: 1px solid #ddd; /* Light border */
-    padding: 15px;
-    border-radius: 8px; /* Rounded corners */
-    color: #8fbf8f; /* Lighter sage green text color */
-    font-size: 16px;
-    line-height: 1.6; /* Improve readability with line height */
-}
+/* MEDIA QUERIES untuk RESPONSIF & ORIENTASI */
 
-.terminal {
-    background-color: #fbf7f0; /* Lighter latte background */
-    color: #333; /* Dark gray text color */
-    padding: 20px;
-    border-radius: 8px; /* Rounded corners */
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    margin-bottom: 20px;
-    text-align: left;
-}
-
-.hidden-br {
+/* Default: Sembunyikan kandungan utama dan tunjukkan overlay rotate */
+.container {
     display: none;
 }
-.terminal-header .circle {
-    margin-top: 2px; /* Adjust circle alignment */
+.rotate-overlay {
+    display: flex;
+}
+
+/* Apabila dalam mod landscape (melintang) DAN lebar lebih besar dari tinggi */
+@media screen and (orientation: landscape) and (min-aspect-ratio: 1/1) {
+    .rotate-overlay {
+        display: none; /* Sembunyikan overlay rotate */
+    }
+    .container {
+        display: flex; /* Tunjukkan kandungan utama */
+    }
+}
+
+/* Animasi untuk tajuk utama muncul */
+@keyframes bounceIn {
+    0% { transform: scale(0.1); opacity: 0; }
+    60% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); }
 }

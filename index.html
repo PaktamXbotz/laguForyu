@@ -1,31 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ms">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Lyrics Display</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untuk Kekasih Hati Saya ❤️</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>❤️</text></svg>">
 </head>
 <body>
-    <div class="container">
-        <div class="terminal-header">
-            <div class="circle red"></div>
-            <div class="circle yellow"></div>
-            <div class="circle green"></div>
-        </div>
-        <h1>Lyrics Display</h1>
-        <button id="playButton">Play</button>
-        <button id="pauseButton">Pause</button>
-        <button id="resetButton">Reset</button>
-        <div id="lyrics"></div>
-        <audio id="audio">
-            <source src="https://k.top4top.io/m_3345kzhxa1.mp3" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
+    <div class="rotate-overlay">
+        <p>Sila pusingkan telefon anda ke mod **landskap (melintang)** untuk pengalaman terbaik!</p>
+        <img src="https://i.imgur.com/gK9qS1L.png" alt="Rotate phone icon" style="width: 100px; height: auto; margin-top: 20px;">
     </div>
-    <script src="lyricsDisplay.js"></script>
+
+    <div class="container">
+        <div class="background-text" id="background-text-container"></div>
+
+        <div class="content-wrapper">
+            <h1 id="main-title">Untuk Seseorang Yang Istimewa...</h1>
+            <p id="countdown"></p>
+            <p id="special-message" class="hidden">
+                </p>
+            <button id="play-music-button" class="hidden">Mainkan Muzik Saya!</button>
+        </div>
+    </div>
+
+    <audio id="myAudio" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+        Maaf, pelayar anda tidak menyokong audio.
+    </audio>
+
+    <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.min.js"></script>
 </body>
 </html>
